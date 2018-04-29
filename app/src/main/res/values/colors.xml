@@ -295,6 +295,7 @@
 
 
     <color name="colorPrimary">#eb4f38</color>
+    <color name="colorPrimaryDark">#009688</color>
 
     <color name="bg_color">#f1f1f1</color>
     <color name="black">#000</color>

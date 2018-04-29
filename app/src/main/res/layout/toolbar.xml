@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize" >
-        </android.support.v7.widget.Toolbar>
-
-
-
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="?attr/colorPrimary"-->
+        <!--android:minHeight="?attr/actionBarSize" >-->
+        <!--</android.support.v7.widget.Toolbar>-->
     <!--<TextView-->
         <!--android:id="@+id/toolbar_title"-->
         <!--android:layout_width="wrap_content"-->
@@ -27,31 +24,59 @@
         <!--android:visibility="gone"-->
         <!--/>-->
 
+    <!--<ImageButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:paddingLeft="20dp"-->
+        <!--android:paddingRight="20dp"-->
+        <!--android:background="@drawable/icon_back_32px"/>-->
 
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerInParent="true"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:background="@drawable/icon_back_32px"/>
-
-    <TextView
+    <!--<TextView-->
+        <!--android:id="@+id/toolbar_searchview"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="20sp"-->
+        <!--android:text="标题"-->
+        <!--/>-->
+    <EditText
         android:id="@+id/toolbar_searchview"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:gravity="center"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:text="标题"
+        android:drawableLeft="@mipmap/icon_search"
+        style="@style/search_view"
+        android:hint="请输入搜索内容"
+        android:layout_marginRight="60dp"
+        android:visibility="gone"
         />
 
 
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:textSize="20sp"
+        android:gravity="center"
+        />
 
+    <ImageButton
+        android:id="@+id/toolbar_rightButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        stytle="@android:stytle/Widge.Material.Toolbar.Button.Navigation"
 
-
+        tools:ignore="MissingPrefix" />
 </RelativeLayout>

@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-
-
-
-    <WebView
-        android:id="@+id/webview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"></WebView>
+    <com.daimajia.slider.library.SliderLayout
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        />
+    <com.daimajia.slider.library.Indicators.PagerIndicator
+        android:id="@+id/custom_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        custom:selected_color="#FF5500"
+        custom:unselected_color="#55333333"
+        custom:shape="rect"
+        custom:selected_padding_left="2dp"
+        custom:selected_padding_right="2dp"
+        custom:unselected_padding_left="2dp"
+        custom:unselected_padding_right="2dp"
+        custom:selected_width="16dp"
+        custom:selected_height="3dp"
+        custom:unselected_width="16dp"
+        custom:unselected_height="3dp"
+        android:layout_gravity="center"
+        />
 
 </LinearLayout>

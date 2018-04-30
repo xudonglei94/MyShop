@@ -1,5 +1,6 @@
 package org.crazyit.myshop.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.crazyit.myshop.R;
+import org.crazyit.myshop.bean.Campaign;
+import org.crazyit.myshop.bean.HomeCampaign;
 import org.crazyit.myshop.bean.HomeCategory;
 
 import java.util.List;
@@ -22,10 +27,18 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
     private  static  int VIEW_TYPE_R=1;
      private LayoutInflater mInflater;
 
-    private  List<HomeCategory> mDatas;
+    private  List<HomeCampaign> mDatas;
 
-     public  HomeCategoryAdapter(List<HomeCategory> datas){
+    private Context mContext;
+    private OnCampaignClickListener mListener;
+
+    public void setOnCampaignClick(OnCampaignClickListener mListener) {
+        this.mListener = mListener;
+    }
+
+    public HomeCategoryAdapter(List<HomeCampaign> datas, Context context){
          this.mDatas=datas;
+         this.mContext=context;
      }
 
 
@@ -42,11 +55,13 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-         HomeCategory category=mDatas.get(position);
-         holder.textView.setText(category.getName());
-         holder.imageViewBig.setImageResource(category.getImgBig());
-         holder.imageViewSmallTop.setImageResource(category.getImgSmallTop());
-         holder.imageViewSmallBottom.setImageResource(category.getImgSmallBottom());
+        HomeCampaign homeCampaign=mDatas.get(position);
+        holder.textView.setText(homeCampaign.getTitle());
+
+        Picasso.with(mContext).load(homeCampaign.getCpOne().getImgUrl()).into(holder.imageViewBig);
+        Picasso.with(mContext).load(homeCampaign.getCpTwo().getImgUrl()).into(holder.imageViewSmallTop);
+        Picasso.with(mContext).load(homeCampaign.getCpThree().getImgUrl()).into(holder.imageViewSmallBottom);
+
 
 
 
@@ -65,7 +80,7 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
         }else return  VIEW_TYPE_L;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
         TextView textView;
         ImageView imageViewBig;
         ImageView imageViewSmallTop;
@@ -77,7 +92,36 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
             textView=itemView.findViewById(R.id.text_title);
             imageViewBig=itemView.findViewById(R.id.imgview_big);
             imageViewSmallTop=itemView.findViewById(R.id.imgview_small_top);
-            imageViewSmallBottom=itemView.findViewById(R.id.imgview_small_top);
+            imageViewSmallBottom=itemView.findViewById(R.id.imgview_small_bottom);
+
+            imageViewBig.setOnClickListener(this);
+            imageViewSmallTop.setOnClickListener(this);
+            imageViewSmallBottom.setOnClickListener(this);
+
+
         }
+
+        @Override
+        public void onClick(View v) {
+
+            HomeCampaign homeCampaign=mDatas.get(getLayoutPosition());
+            if (mListener!=null){
+                switch (v.getId()){
+                    case R.id.imgview_big:
+                        mListener.onClick(v,homeCampaign.getCpOne());
+                        break;
+                    case R.id.imgview_small_top:
+                        mListener.onClick(v,homeCampaign.getCpTwo());
+                        break;
+                    case R.id.imgview_small_bottom:
+                        mListener.onClick(v,homeCampaign.getCpThree());
+                        break;
+                }
+            }
+
+        }
+    }
+     public  interface OnCampaignClickListener{
+         void onClick(View view, Campaign campaign);
     }
 }

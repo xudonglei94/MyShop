@@ -2,48 +2,10 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     >
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="?attr/colorPrimary"-->
-        <!--android:minHeight="?attr/actionBarSize" >-->
-        <!--</android.support.v7.widget.Toolbar>-->
-    <!--<TextView-->
-        <!--android:id="@+id/toolbar_title"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="20sp"-->
-        <!--android:text="标题"-->
-        <!--android:visibility="gone"-->
-        <!--/>-->
 
-    <!--<ImageButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:paddingLeft="20dp"-->
-        <!--android:paddingRight="20dp"-->
-        <!--android:background="@drawable/icon_back_32px"/>-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/toolbar_searchview"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:gravity="center"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="20sp"-->
-        <!--android:text="标题"-->
-        <!--/>-->
     <EditText
         android:id="@+id/toolbar_searchview"
         android:layout_width="match_parent"
@@ -53,7 +15,7 @@
         android:drawableLeft="@mipmap/icon_search"
         style="@style/search_view"
         android:hint="请输入搜索内容"
-        android:layout_marginRight="60dp"
+
         android:visibility="gone"
         />
 
@@ -63,10 +25,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textColor="@color/white"
-        android:visibility="gone"
-        android:textSize="20sp"
+        android:layout_gravity="center"
         android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone"
         />
 
     <ImageButton

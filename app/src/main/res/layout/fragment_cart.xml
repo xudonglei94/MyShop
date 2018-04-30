@@ -12,6 +12,6 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="Cart"
-        android:textSize="20sp"/>
+        />
 
 </LinearLayout>

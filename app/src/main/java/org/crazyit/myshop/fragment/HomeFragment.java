@@ -21,6 +21,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.crazyit.myshop.R;
+import org.crazyit.myshop.Utils.BaseCallback;
+import org.crazyit.myshop.Utils.OkHttpHelper;
+import org.crazyit.myshop.Utils.SpotsCallBack;
 import org.crazyit.myshop.adapter.DividerItemDecortion;
 import org.crazyit.myshop.adapter.HomeCategoryAdapter;
 import org.crazyit.myshop.bean.Banner;
@@ -57,6 +60,8 @@ public class HomeFragment extends Fragment {
     private Gson mGson=new Gson();
 
     private List<Banner> mBanner;
+
+    private OkHttpHelper httpHelper=OkHttpHelper.getInstance();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,43 +78,58 @@ public class HomeFragment extends Fragment {
 
     private  void requestImages(){
         String url="http://112.124.22.238:8081/course_api/banner/query?type=1";
-        OkHttpClient client=new OkHttpClient();
+//        OkHttpClient client=new OkHttpClient();
+//
+//
+//        RequestBody body=new FormBody.Builder()
+//                .add("type","1")
+//                .build();
+//
+//        Request request=new Request.Builder()
+//                .url(url)
+//                .post(body)
+//                .build();
+//
+//
+//             client.newCall(request).enqueue(new Callback() {
+//                @Override
+//                public void onFailure(Call call, IOException e) {
+//
+//                }
+//
+//                @Override
+//                public void onResponse(Call call, Response response) throws IOException {
+//                    //判断是否返回数据成功了
+//                    if (response.isSuccessful()){
+//                        //如果成功了,那么我们便从这里面取出数据
+//                        String json=response.body().string();
+////                        Log.i(TAG,"json="+json);
+//                        //尖括号中传入我们需要转换的数据类型
+//                        Type type=new TypeToken<List<Banner>>(){}.getType();
+//                        mBanner=mGson.fromJson(json,type);
+//                        //接下来我们需要将Banner数据放到initSlider()方法中
+//                        //首先我们需要先改造一下initSlider()这个方法
+//
+//                        initSlider();
+//
+//                    }
+//                }
+//            });
 
+        httpHelper.get(url,new SpotsCallBack<List<Banner>>(getContext()){
 
-        RequestBody body=new FormBody.Builder()
-                .add("type","1")
-                .build();
+            @Override
+            public void onSuccess(Response response, List<Banner> banners) {
+                mBanner=banners;
+                initSlider();
 
-        Request request=new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
+            }
 
+            @Override
+            public void onError(Response response, int code, Exception e) {
 
-             client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    //判断是否返回数据成功了
-                    if (response.isSuccessful()){
-                        //如果成功了,那么我们便从这里面取出数据
-                        String json=response.body().string();
-//                        Log.i(TAG,"json="+json);
-                        //尖括号中传入我们需要转换的数据类型
-                        Type type=new TypeToken<List<Banner>>(){}.getType();
-                        mBanner=mGson.fromJson(json,type);
-                        //接下来我们需要将Banner数据放到initSlider()方法中
-                        //首先我们需要先改造一下initSlider()这个方法
-
-                        initSlider();
-
-                    }
-                }
-            });
+            }
+        });
 
 
     }

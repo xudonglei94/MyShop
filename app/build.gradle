@@ -37,6 +37,8 @@ dependencies {
 
     //增加GSON的依赖
     compile 'com.google.code.gson:gson:2.7'
+    //添加spots-dialog依赖
+    compile 'com.github.d-max:spots-dialog:0.7@aar'
 
 
 }

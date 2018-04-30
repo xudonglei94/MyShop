@@ -18,7 +18,9 @@ buildscript {
 allprojects {
     repositories {
         google()
+//        翻墙比较慢我们把这个仓库改一下
         jcenter()
+//        maven{ url 'http://maven.oschina.net/content/groups/public/'}
     }
 }
 

@@ -13,7 +13,6 @@ import com.squareup.picasso.Picasso;
 import org.crazyit.myshop.R;
 import org.crazyit.myshop.bean.Campaign;
 import org.crazyit.myshop.bean.HomeCampaign;
-import org.crazyit.myshop.bean.HomeCategory;
 
 import java.util.List;
 

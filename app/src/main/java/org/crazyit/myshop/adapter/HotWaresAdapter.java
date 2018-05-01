@@ -54,7 +54,7 @@ public class HotWaresAdapter extends RecyclerView.Adapter<HotWaresAdapter.ViewHo
     }
     public void clearData(){
         mDatas.clear();
-        notifyItemRangeChanged(0,mDatas.size());
+        notifyItemRangeRemoved(0,mDatas.size());
 
     }
 

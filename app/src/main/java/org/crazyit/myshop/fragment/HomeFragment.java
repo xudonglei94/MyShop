@@ -159,7 +159,7 @@ public class HomeFragment extends Fragment {
         mSliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
 
         mSliderLayout.setCustomAnimation(new DescriptionAnimation());
-        mSliderLayout.setPresetTransformer(SliderLayout.Transformer.RotateUp);
+        mSliderLayout.setPresetTransformer(SliderLayout.Transformer.Fade);
         mSliderLayout.setDuration(3000);
 
         mSliderLayout.addOnPageChangeListener(new ViewPagerEx.OnPageChangeListener() {

@@ -1,5 +1,6 @@
 package org.crazyit.myshop.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,10 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -20,8 +23,12 @@ import org.crazyit.myshop.Contants;
 import org.crazyit.myshop.R;
 import org.crazyit.myshop.Utils.OkHttpHelper;
 import org.crazyit.myshop.Utils.SpotsCallBack;
+import org.crazyit.myshop.adapter.BaseAdapter;
+import org.crazyit.myshop.adapter.BaseViewHolder;
 import org.crazyit.myshop.adapter.DividerItemDecortion;
+import org.crazyit.myshop.adapter.HWAdapter;
 import org.crazyit.myshop.adapter.HotWaresAdapter;
+import org.crazyit.myshop.adapter.SimpleAdapter;
 import org.crazyit.myshop.bean.Page;
 import org.crazyit.myshop.bean.Wares;
 import java.util.List;
@@ -38,7 +45,7 @@ public class HotFragment extends Fragment {
 
     private List<Wares> datas;
 
-    private HotWaresAdapter mAdapter;
+    private HWAdapter mAdapter;
 
     @ViewInject(R.id.recyclerview)
     private RecyclerView mRecyclerView;
@@ -130,12 +137,21 @@ public class HotFragment extends Fragment {
 
         switch (state){
             case STATE_NORMAL:
-                mAdapter=new HotWaresAdapter(datas);
+                mAdapter=new HWAdapter(getContext(),datas);
+                mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+                    @Override
+                    public void OnClick(View view, int position) {
+
+                    }
+                });
                 mRecyclerView.setAdapter(mAdapter);
 
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                // mRecyclerView.addItemDecoration(new DividerItemDecortion(getActivity(),DividerItemDecortion.VERTICAL_LIST));
+//                 mRecyclerView.addItemDecoration(new DividerItemDecortion(getActivity(),DividerItemDecortion.VERTICAL_LIST));
+
+
+
                 break;
             case STATE_REFREH:
                 mAdapter.clearData();

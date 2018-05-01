@@ -52,23 +52,20 @@ public class HotWaresAdapter extends RecyclerView.Adapter<HotWaresAdapter.ViewHo
 
         return mDatas.get(position);
     }
+    public List<Wares> getDatas(){
+
+        return  mDatas;
+    }
     public void clearData(){
+
         mDatas.clear();
         notifyItemRangeRemoved(0,mDatas.size());
-
     }
 
     public void addData(List<Wares> datas){
 
         addData(0,datas);
     }
-
-
-    public List<Wares> getDatas(){
-
-        return  mDatas;
-    }
-
 
     public void addData(int position,List<Wares> datas){
 
@@ -79,6 +76,7 @@ public class HotWaresAdapter extends RecyclerView.Adapter<HotWaresAdapter.ViewHo
         }
 
     }
+
 
 
     @Override

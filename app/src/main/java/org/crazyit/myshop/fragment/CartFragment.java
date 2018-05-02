@@ -15,6 +15,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+
 import org.crazyit.myshop.MainActivity;
 import org.crazyit.myshop.R;
 import org.crazyit.myshop.Utils.CartProvider;
@@ -33,7 +35,7 @@ import static android.content.Intent.ACTION_EDIT;
 public class CartFragment extends Fragment implements View.OnClickListener {
 
     public static final int ACTION_EDIT=1;
-    public static final int ACTION_CAMPLATE=2;
+    public static final int ACTION_COMPLETE=2;
 
 
     @ViewInject(R.id.recycler_view)
@@ -70,6 +72,11 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         showData();
 
         return view;
+    }
+    @OnClick(R.id.btn_del)
+    public  void delCart(View  view){
+     mAdapter.delCart();
+
     }
 
     private void showData(){
@@ -123,7 +130,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         mTextTotal.setVisibility(View.GONE);
         mBtnOrder.setVisibility(View.GONE);
         mBtnDel.setVisibility(View.VISIBLE);
-        mToolbar.getRightButton().setTag(ACTION_CAMPLATE);
+        mToolbar.getRightButton().setTag(ACTION_COMPLETE);
 
         mAdapter.checkAll_None(false);
         mCheckBox.setChecked(false);
@@ -154,7 +161,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
 
             showDelControl();
         }
-        else if(ACTION_CAMPLATE == action){
+        else if(ACTION_COMPLETE == action){
 
             hideDelControl();
         }

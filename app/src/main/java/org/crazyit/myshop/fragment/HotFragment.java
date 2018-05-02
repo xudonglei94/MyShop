@@ -140,7 +140,7 @@ public class HotFragment extends Fragment {
                 mAdapter=new HWAdapter(getContext(),datas);
                 mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
                     @Override
-                    public void OnClick(View view, int position) {
+                    public void OnItemClick(View view, int position) {
 
                     }
                 });

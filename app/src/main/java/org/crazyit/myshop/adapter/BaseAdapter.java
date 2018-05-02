@@ -16,36 +16,35 @@ import java.util.List;
 
 public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerView.Adapter<BaseViewHolder>{
 
+    protected static final String TAG = BaseAdapter.class.getSimpleName();
+
     protected  List<T> mDatas;
 
     protected LayoutInflater mInflater;
 
-    protected Context mContext;
+    protected final Context mContext;
 
-    protected  int mLayoutResId;
+    protected final   int mLayoutResId;
 
     protected OnItemClickListener listener;
 
     public  interface  OnItemClickListener{
-        void OnClick(View view,int position);
+        void OnItemClick(View view,int position);
     }
 
-    public  void setOnItemClickListener(OnItemClickListener listener){
-        this.listener=listener;
-    }
 
     //当你需要什么东西参数的时候你都可以在你的构造器中声明这些参数!!!比如布局参数mLayoutResId等等
     public  BaseAdapter(Context context,List<T> datas,int layoutResId){
         this.mDatas=datas;
         this.mContext=context;
         this.mLayoutResId=layoutResId;
-        mInflater=LayoutInflater.from(context);
+       // mInflater=LayoutInflater.from(context);
 
     }
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view=mInflater.inflate(mLayoutResId,parent,false);
+        View view=LayoutInflater.from(parent.getContext()).inflate(mLayoutResId,parent,false);
 
 
         return new BaseViewHolder(view, listener);
@@ -55,7 +54,7 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
     public void onBindViewHolder(BaseViewHolder holder, int position) {
 
 
-        T t=getItemCount(position);
+        T t=getItem(position);
         bindData(holder,t);
 
     }
@@ -68,7 +67,7 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
         return mDatas.size();
     }
 
-    public  T getItemCount(int position){
+    public  T getItem(int position){
         if (position>=mDatas.size())
             return null;
 
@@ -102,4 +101,8 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
 
     }
     public abstract void   bindData(BaseViewHolder viewHolder,T t);
+
+    public  void setOnItemClickListener(OnItemClickListener listener){
+        this.listener=listener;
+    }
 }

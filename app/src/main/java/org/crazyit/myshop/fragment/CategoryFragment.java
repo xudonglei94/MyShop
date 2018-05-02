@@ -167,8 +167,8 @@ public class CategoryFragment extends Fragment {
 
         mCategoryAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
             @Override
-            public void OnClick(View view, int position) {
-                Category category=mCategoryAdapter.getItemCount(position);
+            public void OnItemClick(View view, int position) {
+                Category category=mCategoryAdapter.getItem(position);
 
                 category_id=category.getId();
                 curPage=1;

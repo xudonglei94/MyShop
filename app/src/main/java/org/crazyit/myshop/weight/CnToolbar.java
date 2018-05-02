@@ -1,8 +1,10 @@
 package org.crazyit.myshop.weight;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v7.widget.TintTypedArray;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
@@ -10,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -25,7 +28,7 @@ public class CnToolbar extends Toolbar {
     private View mView;
     private TextView mTextView;
     private EditText mSearchView;
-    private ImageButton mRightImageButton;
+    private Button mRightButton;
 
     public CnToolbar(Context context) {
         this(context, null);
@@ -64,16 +67,15 @@ public class CnToolbar extends Toolbar {
         }
     }
 
+//    @SuppressLint("WrongViewCast")
     private void initView() {
         if (mView == null) {
             mInflater=LayoutInflater.from(getContext());
             mView=mInflater.inflate(R.layout.toolbar,null);
 
-//            View mView = mInflater.inflate(R.layout.toolbar, null);
-
             mTextView = mView.findViewById(R.id.toolbar_title);
             mSearchView = mView.findViewById(R.id.toolbar_searchview);
-            mRightImageButton = mView.findViewById(R.id.toolbar_rightButton);
+            mRightButton = (Button)mView.findViewById(R.id.toolbar_rightButton);
 
             LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL);
 
@@ -82,15 +84,29 @@ public class CnToolbar extends Toolbar {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void setRightButtonIcon(Drawable icon) {
-        if (mRightImageButton != null) {
-            mRightImageButton.setImageDrawable(icon);
-            mRightImageButton.setVisibility(VISIBLE);
+        if (mRightButton != null) {
+            mRightButton.setBackground(icon);
+            mRightButton.setVisibility(VISIBLE);
         }
     }
 
     public void setRightButtonOnClickListener(OnClickListener listener) {
-        mRightImageButton.setOnClickListener(listener);
+        mRightButton.setOnClickListener(listener);
+    }
+    public void setRightButtonText(CharSequence text){
+        mRightButton.setText(text);
+        mRightButton.setVisibility(VISIBLE);
+    }
+
+    public void setRightButtonText(int id){
+        setRightButtonText(getResources().getString(id));
+    }
+
+
+    public  Button getRightButton(){
+        return this.mRightButton;
     }
 
     @Override
@@ -131,7 +147,5 @@ public class CnToolbar extends Toolbar {
             mTextView.setVisibility(GONE);
         }
     }
-    //    public CnToolbar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-//        super(context, attrs, defStyleAttr, defStyleRes);
-//    }
+
 }

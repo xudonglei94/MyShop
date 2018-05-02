@@ -22,7 +22,7 @@ public class ShoppingCart extends  Wares implements Serializable {
         return isCheckd;
     }
 
-    public void setCheckd(boolean checkd) {
+    public void setIsChecked(boolean checkd) {
         isCheckd = checkd;
     }
 }

@@ -35,14 +35,13 @@ public class HWAdapter extends SimpleAdapter<Wares>{
         draweeView.setImageURI(Uri.parse(wares.getImgUrl()));
 
         viewHolder.getTextView(R.id.text_title).setText(wares.getName());
+        viewHolder.getTextView(R.id.text_price).setText("￥ "+wares.getPrice());
 
         Button button=viewHolder.getButton(R.id.btn_add);
+        if (button!=null){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-            //    ShoppingCart cart= (ShoppingCart) wares;
-
 
                 provider.put(convertData(wares));
 
@@ -51,6 +50,7 @@ public class HWAdapter extends SimpleAdapter<Wares>{
 
             }
         });
+        }
 
     }
     public ShoppingCart convertData(Wares item){
@@ -64,4 +64,16 @@ public class HWAdapter extends SimpleAdapter<Wares>{
 
         return cart;
     }
+    public void  resetLayout(int layoutId){
+
+        //这个地方记得有点问题需要我们改一下,之前在父类中是layoutResId且是final类型的
+        //我们将它改成这个类型便可以了
+
+        this.mLayoutResId  = layoutId;
+
+        notifyItemRangeChanged(0,getDatas().size());
+
+
+    }
+
 }

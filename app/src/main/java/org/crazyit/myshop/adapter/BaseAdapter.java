@@ -25,7 +25,7 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
 
     protected final Context mContext;
 
-    protected final   int mLayoutResId;
+    protected int mLayoutResId;
 
     protected OnItemClickListener listener;
 

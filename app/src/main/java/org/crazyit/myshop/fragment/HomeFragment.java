@@ -1,5 +1,6 @@
 package org.crazyit.myshop.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import org.crazyit.myshop.R;
 import org.crazyit.myshop.Utils.BaseCallback;
 import org.crazyit.myshop.Utils.OkHttpHelper;
 import org.crazyit.myshop.Utils.SpotsCallBack;
+import org.crazyit.myshop.WareListActivity;
 import org.crazyit.myshop.adapter.DividerItemDecortion;
 import org.crazyit.myshop.adapter.HomeCategoryAdapter;
 import org.crazyit.myshop.bean.Banner;
@@ -130,6 +132,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view, Campaign campaign) {
                 Toast.makeText(getContext(),"title="+campaign.getTitle(),Toast.LENGTH_LONG).show();
+
+                Intent intent=new Intent(getActivity(),WareListActivity.class);
+                intent.putExtra(Contants.COMPAINGAIN_ID,campaign.getId());
+                startActivity(intent);
+
+
             }
         });
 

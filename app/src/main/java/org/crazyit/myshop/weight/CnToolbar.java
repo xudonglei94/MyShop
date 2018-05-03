@@ -91,6 +91,10 @@ public class CnToolbar extends Toolbar {
             mRightButton.setVisibility(VISIBLE);
         }
     }
+    public  void setRightButtonIcon(int icon){
+        setRightButtonIcon(getResources().getDrawable(icon));
+
+    }
 
     public void setRightButtonOnClickListener(OnClickListener listener) {
         mRightButton.setOnClickListener(listener);

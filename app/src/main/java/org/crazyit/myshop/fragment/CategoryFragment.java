@@ -44,8 +44,8 @@ import org.crazyit.myshop.bean.Wares;
 import java.io.IOException;
 import java.util.List;
 
-import okhttp3.Request;
-import okhttp3.Response;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 /**
  * Created by Administrator on 2018/4/27.
@@ -252,12 +252,12 @@ public class CategoryFragment extends Fragment {
         String url=Contants.API.WARES_LIST+"?categoryId="+categoryId+"&curPage="+curPage+"&pageSize="+pageSize;
         mHttpHelper.get(url, new BaseCallback<Page<Wares>>() {
             @Override
-            public void onRequestBefore(Request request) {
+            public void onBeforeRequest(Request request) {
 
             }
 
             @Override
-            public void onFailure(Request request, IOException e) {
+            public void onFailure(Request request, Exception e) {
 
             }
 
@@ -302,7 +302,7 @@ public class CategoryFragment extends Fragment {
                 //这个地方总是报错我也很无奈啊 !!!!
                 //mRecyclerviewWares.addItemDecoration(new DividerGridItemDecoration(getContext()));
                 }else {
-                    mWaresAdapter.clearData();
+                    mWaresAdapter.clear();
                     mWaresAdapter.addData(wares);
 
                 }
@@ -311,7 +311,7 @@ public class CategoryFragment extends Fragment {
 
                 break;
             case STATE_REFREH:
-                mWaresAdapter.clearData();
+                mWaresAdapter.clear();
                 mWaresAdapter.addData(wares);
                 mRecyclerView.scrollToPosition(0);
 

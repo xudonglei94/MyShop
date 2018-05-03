@@ -33,8 +33,8 @@ import org.crazyit.myshop.bean.HomeCampaign;
 import java.io.IOException;
 import java.util.List;
 
-import okhttp3.Request;
-import okhttp3.Response;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 /**
  * Created by Administrator on 2018/4/27.
@@ -96,12 +96,12 @@ public class HomeFragment extends Fragment {
         httpHelper.get(Contants.API.CAMPAIGN_HOME,new BaseCallback<List<HomeCampaign>>(){
 
             @Override
-            public void onRequestBefore(Request request) {
+            public void onBeforeRequest(Request request) {
 
             }
 
             @Override
-            public void onFailure(Request request, IOException e) {
+            public void onFailure(Request request, Exception e) {
 
             }
 

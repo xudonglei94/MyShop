@@ -5,8 +5,8 @@ import android.content.Context;
 import java.io.IOException;
 
 import dmax.dialog.SpotsDialog;
-import okhttp3.Request;
-import okhttp3.Response;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 /**
  * Created by Administrator on 2018/4/30.
@@ -14,29 +14,42 @@ import okhttp3.Response;
 
 public abstract class SpotsCallBack<T> extends BaseCallback<T> {
 
-    private  SpotsDialog dialog;
+    private  Context mContext;
+    private  SpotsDialog mDialog;
+
     public SpotsCallBack(Context context){
         //因为这个构造方法需要一个Context对象所以我们必须要将它方法一个构造方法中
-        dialog=new SpotsDialog(context);
+//        mDialog=new SpotsDialog(context);
+        mContext = context;
+
+        initSpotsDialog();
+    }
+    private  void initSpotsDialog(){
+
+        mDialog = new SpotsDialog(mContext,"拼命加载中...");
+
     }
     public void showDialog(){
-        dialog.show();
+        mDialog.show();
     }
     public  void dismissDialog(){
-        if (dialog!=null)
-            dialog.dismiss();
+        if (mDialog!=null)
+            mDialog.dismiss();
+    }
+    public void setLoadMessage(int resId){
+        mDialog.setMessage(mContext.getString(resId));
     }
     public void setMessage(String message){
-        dialog.setMessage(message);
+        mDialog.setMessage(message);
     }
 
     @Override
-    public void onRequestBefore(Request request) {
+    public void onBeforeRequest(Request request) {
       showDialog();
     }
 
     @Override
-    public void onFailure(Request request, IOException e) {
+    public void onFailure(Request request, Exception e) {
         dismissDialog();
 
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import org.crazyit.myshop.bean.Wares;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -55,7 +56,7 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
 
 
         T t=getItem(position);
-        bindData(holder,t);
+        bindData((H)holder,t);
 
     }
 
@@ -73,15 +74,41 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
 
         return  mDatas.get(position);
     }
-    public void clearData(){
-        mDatas.clear();
-        notifyItemRangeRemoved(0,mDatas.size());
 
+    //自己写的方法先隐藏
+//    public void clearData(){
+//        mDatas.clear();
+//        notifyItemRangeRemoved(0,mDatas.size());
+//
+//    }
+
+    public void clear(){
+//        int itemCount = datas.size();
+//        datas.clear();
+//        this.notifyItemRangeRemoved(0,itemCount);
+
+        for (Iterator it = mDatas.iterator(); it.hasNext();){
+
+            T t = (T) it.next();
+            int position = mDatas.indexOf(t);
+            it.remove();
+            notifyItemRemoved(position);
+        }
     }
+    //自己写的方法先隐藏
+//    public void clearData(){
+//        mDatas.clear();
+//        notifyItemRangeRemoved(0,mDatas.size());
+//
+//    }
 
-    public void addData(List<T> datas){
 
-        addData(0,datas);
+    //从列表中删除某项
+    public  void removeItem(T t){
+
+        int position = mDatas.indexOf(t);
+        mDatas.remove(position);
+        notifyItemRemoved(position);
     }
 
 
@@ -90,17 +117,68 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
         return  mDatas;
     }
 
+    public void addData(List<T> datas){
 
-    public void addData(int position,List<T> datas){
+        addData(0,datas);
+    }
 
-        if(datas !=null && datas.size()>0) {
 
-            mDatas.addAll(datas);
-            notifyItemRangeChanged(position, mDatas.size());
+
+    public void addData(int position,List<T> list){
+
+        if(list !=null && list.size()>0) {
+
+            for (T t:list) {
+                mDatas.add(position, t);
+                notifyItemInserted(position);
+            }
+
+        }
+    }
+    public void refreshData(List<T> list){
+
+        if(list !=null && list.size()>0){
+
+            clear();
+            int size = list.size();
+            for (int i=0;i<size;i++){
+                mDatas.add(i,list.get(i));
+                notifyItemInserted(i);
+            }
+
+        }
+    }
+    //之前自己写的方法隐藏
+    //    public void addData(int position,List<T> datas){
+//
+//        if(datas !=null && datas.size()>0) {
+//
+//            mDatas.addAll(datas);
+//            notifyItemRangeChanged(position, mDatas.size());
+//        }
+//
+//    }
+
+    public void loadMoreData(List<T> list){
+
+        if(list !=null && list.size()>0){
+
+            int size = list.size();
+            int begin = mDatas.size();
+            for (int i=0;i<size;i++){
+                mDatas.add(list.get(i));
+                notifyItemInserted(i+begin);
+            }
+
         }
 
-    }
-    public abstract void   bindData(BaseViewHolder viewHolder,T t);
+
+
+
+
+
+}
+    public abstract void   bindData(H viewHolder,T t);
 
     public  void setOnItemClickListener(OnItemClickListener listener){
         this.listener=listener;

@@ -91,7 +91,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
 
 
     public void  refData(){
-        mAdapter.clearData();
+        mAdapter.clear();
         List<ShoppingCart> carts=cartProvider.getAll();
         mAdapter.addData(carts);
         mAdapter.showTotalPrice();

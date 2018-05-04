@@ -19,6 +19,7 @@ import org.crazyit.myshop.weight.CnToolbar;
 
 import java.io.Serializable;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import dmax.dialog.SpotsDialog;
 
 public class WareDetailActivity extends AppCompatActivity implements View.OnClickListener {
@@ -65,8 +66,10 @@ public class WareDetailActivity extends AppCompatActivity implements View.OnClic
         mToolBar.setRightButtonOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showShare();
 
-//                showShare();
+
+
             }
         });
     }
@@ -95,6 +98,41 @@ public class WareDetailActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         this.finish();
 
+    }
+
+    private void showShare() {
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+        // title标题，微信、QQ和QQ空间等平台使用
+        oks.setTitle(getString(R.string.share));
+
+        // titleUrl QQ和QQ空间跳转链接
+        oks.setTitleUrl("http://www.baidu.com");
+
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText(mWare.getName());
+
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        //这个地方是分享的网络图片如果setImagePath()和setImageUrl()同时存在则前者会覆盖后者所以我们将前者注释掉即可
+        oks.setImageUrl(mWare.getImgUrl());
+
+        // url在微信、微博，Facebook等平台中使用
+        oks.setUrl("http://www.baidu.com");
+
+        // comment是我对这条分享的评论，仅在人人网使用
+        oks.setComment(mWare.getDescription());
+
+        //stie是分享此内容的网站名称,仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+
+        //siteUrl是分享此内容的网站地址,仅在QQ空间使用
+         oks.setSiteUrl("http://www.baidu.com");
+
+        // 启动分享GUI
+        oks.show(this);
     }
 //    private void showShare() {
 //        ShareSDK.initSDK(this);
@@ -140,6 +178,7 @@ public class WareDetailActivity extends AppCompatActivity implements View.OnClic
 //
 //        ShareSDK.stopSDK(this);
 //    }
+
 
 
     //写一个类判断是否加载完成,如果加载完成那么我们便调用showDetail()方法

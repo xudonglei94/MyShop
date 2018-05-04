@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.mob.MobSDK;
 
 /**
  * Created by Administrator on 2018/5/1.
@@ -16,6 +17,8 @@ public class MyShopApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context=getApplicationContext();
+
+        MobSDK.init(this);
 
         Fresco.initialize(this);
     }

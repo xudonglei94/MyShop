@@ -9,5 +9,7 @@
     <string name="category">分类</string>
     <string name="cart">购物车</string>
     <string name="mine">我的</string>
+    <string name="title_activity_ware_detail">WareDetailActivity</string>
+    <string name="share">分享</string>
 
 </resources>

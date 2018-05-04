@@ -6,6 +6,7 @@ import android.util.SparseArray;
 import com.google.gson.reflect.TypeToken;
 
 import org.crazyit.myshop.bean.ShoppingCart;
+import org.crazyit.myshop.bean.Wares;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,19 +27,34 @@ public class CartProvider {
         listToSparse();
 
     }
-
     public void put(ShoppingCart cart){
 
-        ShoppingCart temp=datas.get(cart.getId().intValue());
-        if (temp!=null){
+
+        ShoppingCart temp =  datas.get(cart.getId().intValue());
+
+        if(temp !=null){
             temp.setCount(temp.getCount()+1);
-        }else {
-            temp=cart;
+        }
+        else{
+            temp = cart;
             temp.setCount(1);
         }
+
         datas.put(cart.getId().intValue(),temp);
+
         commit();
+
     }
+
+    //这个地方属于代码重构,通过代码重构来完善代码
+    //因为现在有很多地方都需要这个Wares对象了所以我们重构这个方法
+    //如果不重构那么代码反复copy不容易后期维护
+    public void put(Wares wares){
+
+        ShoppingCart cart=convertData(wares);
+        put(cart);
+    }
+
 
 
     public  void update(ShoppingCart cart){
@@ -90,5 +106,16 @@ public class CartProvider {
 
         }
         return carts;
+    }
+    public ShoppingCart convertData(Wares item){
+        ShoppingCart cart=new ShoppingCart();
+
+        cart.setId(item.getId());
+        cart.setDescription(item.getDescription());
+        cart.setImgUrl(item.getImgUrl());
+        cart.setName(item.getName());
+        cart.setPrice(item.getPrice());
+
+        return cart;
     }
 }

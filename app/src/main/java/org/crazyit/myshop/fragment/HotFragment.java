@@ -1,6 +1,7 @@
 package org.crazyit.myshop.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,8 @@ import java.util.List;
 
 import org.crazyit.myshop.Contants;
 import org.crazyit.myshop.R;
+import org.crazyit.myshop.WareDetailActivity;
+import org.crazyit.myshop.adapter.BaseAdapter;
 import org.crazyit.myshop.adapter.HWAdapter;
 import org.crazyit.myshop.Utils.Pager;
 import org.crazyit.myshop.bean.Page;
@@ -43,62 +46,6 @@ public class HotFragment extends BaseFragment implements Pager.OnPageListener<Wa
     private MaterialRefreshLayout mRefreshLayout;
 
 
-
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view=inflater.inflate(R.layout.fragment_hot,container,false);
-//
-//        ViewUtils.inject(this,view);
-//
-//
-//
-//        Pager pager=Pager.newBuilder()
-//                .setUrl(Contants.API.WARES_HOT)
-//                .setLoadMore(true)
-//                .setOnPageListener(new Pager.OnPageListener() {
-//            @Override
-//            public void load(List datas, int totalPage, int totalCount) {
-//
-//                mAdapter=new HWAdapter(getContext(),datas);
-//                mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
-//                    @Override
-//                    public void OnItemClick(View view, int position) {
-//
-//                    }
-//                });
-//                mRecyclerView.setAdapter(mAdapter);
-//
-//                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//                mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-////                 mRecyclerView.addItemDecoration(new DividerItemDecortion(getContext(),DividerItemDecoration.VERTICAL_LIST));
-//            }
-//
-//            @Override
-//            public void refresh(List datas, int totalPage, int totalCount) {
-//                mAdapter.clearData();
-//                mAdapter.addData(datas);
-//                mRecyclerView.scrollToPosition(0);
-//
-//
-//            }
-//
-//            @Override
-//            public void loadMore(List datas, int totalPage, int totalCount) {
-//                mAdapter.addData(mAdapter.getDatas().size(),datas);
-//                mRecyclerView.scrollToPosition(mAdapter.getDatas().size());
-//
-//            }
-//        })
-//                .setPageSize(20)
-//                .setRefreshLayout(mRefreshLayout)
-//                .builder(getContext(),new TypeToken<Page<Wares>>(){}.getType());
-//
-//
-//        pager.request();
-//        return view;
-//    }
-
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_hot,container,false);
@@ -122,12 +69,20 @@ public class HotFragment extends BaseFragment implements Pager.OnPageListener<Wa
     @Override
     public void load(List<Wares> datas, int totalPage, int totalCount) {
         mAdapter=new HWAdapter(getContext(),datas);
-//        mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
-//            @Override
-//            public void OnItemClick(View view, int position) {
-//
-//            }
-//        });
+        mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(View view, int position) {
+
+                Wares wares=mAdapter.getItem(position);
+
+                Intent intent=new Intent(getActivity(), WareDetailActivity.class);
+
+                intent.putExtra(Contants.WARE,wares);
+
+                startActivity(intent);
+
+            }
+        });
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -138,8 +93,6 @@ public class HotFragment extends BaseFragment implements Pager.OnPageListener<Wa
 
     @Override
     public void refresh(List<Wares> datas, int totalPage, int totalCount) {
-//        mAdapter.clearData();
-//        mAdapter.addData(datas);
         mAdapter.refreshData(datas);
         mRecyclerView.scrollToPosition(0);
 

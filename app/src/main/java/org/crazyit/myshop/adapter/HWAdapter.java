@@ -43,7 +43,7 @@ public class HWAdapter extends SimpleAdapter<Wares>{
             @Override
             public void onClick(View v) {
 
-                provider.put(convertData(wares));
+                provider.put(wares);
 
 
                 ToastUtils.show(mContext,"已添加至购物车");
@@ -53,17 +53,7 @@ public class HWAdapter extends SimpleAdapter<Wares>{
         }
 
     }
-    public ShoppingCart convertData(Wares item){
-        ShoppingCart cart=new ShoppingCart();
 
-        cart.setId(item.getId());
-        cart.setDescription(item.getDescription());
-        cart.setImgUrl(item.getImgUrl());
-        cart.setName(item.getName());
-        cart.setPrice(item.getPrice());
-
-        return cart;
-    }
     public void  resetLayout(int layoutId){
 
         //这个地方记得有点问题需要我们改一下,之前在父类中是layoutResId且是final类型的

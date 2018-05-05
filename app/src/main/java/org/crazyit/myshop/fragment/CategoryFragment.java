@@ -280,6 +280,11 @@ public class CategoryFragment extends Fragment {
             public void onError(Response response, int code, Exception e) {
 
             }
+
+            @Override
+            public void onTokenError(Response response, int code) {
+
+            }
         });
     }
     private void showWaresData(List<Wares> wares){

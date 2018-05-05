@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,17 @@ import android.widget.TextView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.squareup.okhttp.Response;
 
+import org.crazyit.myshop.Contants;
 import org.crazyit.myshop.MainActivity;
 import org.crazyit.myshop.R;
 import org.crazyit.myshop.Utils.CartProvider;
+import org.crazyit.myshop.Utils.OkHttpHelper;
+import org.crazyit.myshop.Utils.SpotsCallBack;
 import org.crazyit.myshop.adapter.CartAdapter;
 import org.crazyit.myshop.bean.ShoppingCart;
+import org.crazyit.myshop.bean.User;
 import org.crazyit.myshop.weight.CnToolbar;
 
 import java.util.List;
@@ -36,6 +42,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
 
     public static final int ACTION_EDIT=1;
     public static final int ACTION_COMPLETE=2;
+    private static final String TAG = "CartFragment";
 
 
     @ViewInject(R.id.recycler_view)
@@ -57,6 +64,8 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     private CartProvider cartProvider ;
 
     private CnToolbar mToolbar;
+
+    private OkHttpHelper httpHelper=OkHttpHelper.getInstance();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,6 +87,24 @@ public class CartFragment extends Fragment implements View.OnClickListener {
      mAdapter.delCart();
 
     }
+    @OnClick(R.id.btn_order)
+    public  void toOrder(View  view){
+
+        httpHelper.get(Contants.API.USER_DETAIL, new SpotsCallBack<User>(getActivity()) {
+            @Override
+            public void onSuccess(Response response, User o) {
+                Log.d(TAG,"onSuccess======"+response.code());
+            }
+
+            @Override
+            public void onError(Response response, int code, Exception e) {
+                Log.d(TAG,"onError======"+response.code());
+
+            }
+        });
+
+    }
+
 
     private void showData(){
         List<ShoppingCart> carts=cartProvider.getAll();

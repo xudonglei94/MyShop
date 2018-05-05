@@ -1,12 +1,17 @@
 package org.crazyit.myshop.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 
 import java.io.IOException;
 
 import dmax.dialog.SpotsDialog;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
+import org.crazyit.myshop.LoginActivity;
+import org.crazyit.myshop.R;
+import org.crazyit.myshop.weight.MyShopApplication;
 
 /**
  * Created by Administrator on 2018/4/30.
@@ -57,5 +62,16 @@ public abstract class SpotsCallBack<T> extends BaseCallback<T> {
     @Override
     public void onResponse(Response response) {
         dismissDialog();
+    }
+
+    @Override
+    public void onTokenError(Response response, int code) {
+        ToastUtils.show(mContext, R.string.token_error);
+
+        Intent intent =new Intent(mContext, LoginActivity.class);
+        mContext.startActivity(intent);
+
+        MyShopApplication.getInstance().clearUser();
+
     }
 }

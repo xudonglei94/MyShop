@@ -28,7 +28,9 @@
         <activity android:name=".TestActivity" />
         <activity android:name=".WareListActivity" />
         <activity android:name=".WareDetailActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".NewOrderActivity"></activity>
     </application>
 
 </manifest>

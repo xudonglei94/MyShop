@@ -96,7 +96,9 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 }else{
 
+                    //跳转从Application中我们定义的方法中跳转
                     application.jumpToTargetActivity(LoginActivity.this);
+                    //将自己销毁掉
                     finish();
 
                 }

@@ -22,7 +22,7 @@ import java.io.Serializable;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import dmax.dialog.SpotsDialog;
 
-public class WareDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class WareDetailActivity extends BaseActivity implements View.OnClickListener {
 
 
     @ViewInject(R.id.webView)

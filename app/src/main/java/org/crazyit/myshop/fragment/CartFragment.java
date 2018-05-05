@@ -1,6 +1,7 @@
 package org.crazyit.myshop.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import com.squareup.okhttp.Response;
 
 import org.crazyit.myshop.Contants;
 import org.crazyit.myshop.MainActivity;
+import org.crazyit.myshop.NewOrderActivity;
 import org.crazyit.myshop.R;
 import org.crazyit.myshop.Utils.CartProvider;
 import org.crazyit.myshop.Utils.OkHttpHelper;
@@ -38,7 +40,7 @@ import static android.content.Intent.ACTION_EDIT;
  * Created by Administrator on 2018/4/27.
  */
 
-public class CartFragment extends Fragment implements View.OnClickListener {
+public class CartFragment extends BaseFragment implements View.OnClickListener {
 
     public static final int ACTION_EDIT=1;
     public static final int ACTION_COMPLETE=2;
@@ -66,22 +68,22 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     private CnToolbar mToolbar;
 
     private OkHttpHelper httpHelper=OkHttpHelper.getInstance();
-    @Nullable
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_cart,container,false);
+    }
 
+    @Override
+    public void init() {
+        cartProvider = new CartProvider(getContext());
 
-        View view=inflater.inflate(R.layout.fragment_cart,container,false);
-
-        ViewUtils.inject(this,view);
-
-
-        cartProvider=new CartProvider(getContext());
-
+        changeToolbar();
         showData();
 
-        return view;
     }
+
     @OnClick(R.id.btn_del)
     public  void delCart(View  view){
      mAdapter.delCart();
@@ -90,18 +92,21 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     @OnClick(R.id.btn_order)
     public  void toOrder(View  view){
 
-        httpHelper.get(Contants.API.USER_DETAIL, new SpotsCallBack<User>(getActivity()) {
-            @Override
-            public void onSuccess(Response response, User o) {
-                Log.d(TAG,"onSuccess======"+response.code());
-            }
-
-            @Override
-            public void onError(Response response, int code, Exception e) {
-                Log.d(TAG,"onError======"+response.code());
-
-            }
-        });
+        //测试API权限时用的
+//        httpHelper.get(Contants.API.USER_DETAIL, new SpotsCallBack<User>(getActivity()) {
+//            @Override
+//            public void onSuccess(Response response, User o) {
+//                Log.d(TAG,"onSuccess======"+response.code());
+//            }
+//
+//            @Override
+//            public void onError(Response response, int code, Exception e) {
+//                Log.d(TAG,"onError======"+response.code());
+//
+//            }
+//        });
+        Intent intent=new Intent(getActivity(), NewOrderActivity.class);
+        startActivity(intent,true);
 
     }
 

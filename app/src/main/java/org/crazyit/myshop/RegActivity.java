@@ -73,6 +73,7 @@ public class RegActivity extends BaseActivity {
         
         initToolBar();
         evenHanlder=new SMSEventHandler();
+        //以无界面接口完成操作,本项目中我们选择无界面接口完成操作
         SMSSDK.registerEventHandler(evenHanlder);
 
         String[] country = SMSSDK.getCountry(DEFAULT_COUNTRY_ID);
@@ -126,6 +127,7 @@ public class RegActivity extends BaseActivity {
             });
         }
     }
+    //以可视化界面完成操作
 //    public void sendCode(Context context) {
 //        //打开注册界面
 //        RegisterPage page = new RegisterPage();

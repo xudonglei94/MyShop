@@ -3,6 +3,7 @@
     <declare-styleable name="CnToolbar">
         <attr name="rightButtonIcon" format="reference"/>
         <attr name="isShowSearchView" format="boolean"/>
+        <attr name="rightButtonText" format="string"/>
     </declare-styleable>
 
 

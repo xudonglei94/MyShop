@@ -34,6 +34,7 @@ public class Contants  {
 
 
         public static final String LOGIN=BASE_URL +"auth/login";
+        public static final String REG=BASE_URL +"auth/reg";
 
         public static final String USER_DETAIL=BASE_URL +"user/get?id=1";
 

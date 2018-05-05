@@ -48,6 +48,14 @@ MobSDK {
         }
     }
 
+
+}
+// 在MobSDK的扩展中注册SMSSDK的相关信息
+MobSDK {
+    appKey "2597d70d566fc"
+    appSecret "c305a8fe450eeb39249a6bd23b3a0e6f"
+
+    SMSSDK {}
 }
 
 dependencies {

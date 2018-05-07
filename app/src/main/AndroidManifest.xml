@@ -9,6 +9,13 @@
     <!-- if you want to load images from a file OR from the internet -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!-- 通用权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 银联需要的权限 -->
+    <uses-permission android:name="android.permission.NFC" />
+
     <application
         android:name=".weight.MyShopApplication"
         android:allowBackup="true"
@@ -18,26 +25,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name">
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".TestActivity" />
         <activity android:name=".WareListActivity" />
-        <activity android:name=".WareDetailActivity" android:label="@string/title_activity_ware_detail" >
-
-        </activity>
-        <activity android:name=".LoginActivity" ></activity>
+        <activity
+            android:name=".WareDetailActivity"
+            android:label="@string/title_activity_ware_detail" />
+        <activity android:name=".LoginActivity" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <data android:scheme="tencent100371282" />
 
@@ -48,10 +54,75 @@
             </intent-filter>
         </activity>
         <activity android:name=".BaseActivity" />
-        <activity android:name=".NewOrderActivity"  android:label="@string/title_activity_new_order"/>
-        <activity android:name=".RegActivity" android:label="@string/title_activity_reg">
-        </activity>
-        <activity android:name=".RegSecondActivity"></activity>
+        <activity
+            android:name=".NewOrderActivity"
+            android:label="@string/title_activity_new_order" />
+        <activity
+            android:name=".RegActivity"
+            android:label="@string/title_activity_reg" />
+        <activity android:name=".RegSecondActivity" />
+
+        <!-- Ping++ SDK所需要注册 -->
+        <activity
+            android:name="com.pingplusplus.android.PaymentActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="qwallet1234567890" />
+            </intent-filter>
+        </activity> <!-- 微信支付需要注册 注： -->
+        <!-- 需要将以下“替换成自己 APK 的包名”换成在微信平台上注册填写的包名 -->
+        <!-- WxPayEntryActivity 这个类在 SDK 内部实现，开发者不需要额外实现该类 -->
+        <activity-alias
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:targetActivity="com.pingplusplus.android.PaymentActivity" />
+        <!-- 支付宝支付需要注册 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <!-- 银联支付需注册 -->
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize" />
+        <activity
+            android:name="com.unionpay.UPPayWapActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- QQ 钱包需注册(scheme 填写规则：qwallet + QQ 钱包中的 app_id) -->
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.BROWSABLE" />
+            <category android:name="android.intent.category.DEFAULT" />
+
+            <data android:scheme="qwalletXXXXXXXX" />
+        </intent-filter>
+
+        <!-- 招行一网通(非混淆加密方式)需注册 -->
+        <service
+            android:name="cmb.pb.cmbsafe.CmbService"
+            android:exported="false" />
+
+        <activity
+            android:name="cmb.pb.ui.PBKeyboardActivity"
+            android:theme="@style/CmbDialogStyleBottom" />
+        <activity android:name=".CreateOrderActivity" />
+        <activity android:name=".PayResultActivity"></activity>
     </application>
 
 </manifest>

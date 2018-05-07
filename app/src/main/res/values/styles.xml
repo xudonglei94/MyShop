@@ -1,24 +1,3 @@
-<!--<resources>-->
-
-    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
-    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-    <!--</style>-->
-
-<!--</resources>-->
-<!--<resources>-->
-
-    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
-    <!--<style name="AppTheme" parent="Theme.AppCompat">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-    <!--</style>-->
-
-<!--</resources>-->
 <resources>
 
     <!-- Base application theme. -->
@@ -26,7 +5,7 @@
         <!-- Customize your theme here. -->
 
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/white</item>
         <!-- 窗口的背景颜色 -->
         <item name="android:windowBackground">@android:color/white</item>
@@ -52,6 +31,7 @@
         <item name="android:singleLine">true</item>
     </style>
 
+
     <style name="line">
         <item name="android:background">@color/bg_color</item>
     </style>
@@ -70,6 +50,9 @@
         <item name="android:layout_gravity">center_horizontal</item>
 
     </style>
+
+
+
     <style name="bigButton">
         <item name="android:textSize">@dimen/bigButtonTextSize</item>
         <item name="android:textColor">@color/white_color_selector</item>
@@ -123,9 +106,13 @@
         <item name="android:textColor">@color/grey_btn_text_color</item>
         <item name="android:background">@drawable/bg_btn_style_grey</item>
     </style>
+
+
     <style name="customCheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/selector_checkbox</item>
     </style>
+
+
 
     <style name="customTabLayout" parent="Widget.Design.TabLayout">
         <!--<item name="tabMaxWidth">@dimen/tab_max_width</item>-->
@@ -156,6 +143,7 @@
         <item name="android:textSize">22sp</item>
 
     </style>
+
     <style name="editText_base">
         <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
@@ -172,5 +160,13 @@
         <item name="android:background">@drawable/selector_edittext</item>
 
     </style>
+
+    <style name="radioButton">
+        <item name="android:background">@drawable/selector_checkbox_green</item>
+        <item name="android:button">@null</item>
+
+    </style>
+
+
 
 </resources>

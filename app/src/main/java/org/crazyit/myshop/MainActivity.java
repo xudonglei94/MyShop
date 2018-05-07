@@ -26,7 +26,6 @@ public class MainActivity extends BaseActivity {
 
     private FragmentTabHost mTabhost;
     private LayoutInflater mInflater;
-    private CnToolbar mToolbar;
     private CartFragment cartFragment;
     private List<Tab> mTabs=new ArrayList<>(5);
 
@@ -36,13 +35,10 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         initTab();
-        initToolBar();
+
 
     }
-    private void initToolBar() {
 
-        mToolbar = (CnToolbar) findViewById(R.id.toolbar);
-    }
 
     private void initTab() {
 
@@ -76,12 +72,7 @@ public class MainActivity extends BaseActivity {
                 if (tabId==getString(R.string.cart)) {
                     refData();
 
-                    //cartFragment.changeToolbar();
-                }
-                else {
-                    mToolbar.showSearchView();
-                    mToolbar.hideTitleView();
-                    mToolbar.getRightButton().setVisibility(View.GONE);
+
                 }
             }
         });
@@ -99,12 +90,11 @@ public class MainActivity extends BaseActivity {
                 cartFragment = (CartFragment) fragment;
                 //第一次开始的时候我们也要初始化
                 cartFragment.refData();
-                cartFragment.changeToolbar();
             }
         }
         else{
             cartFragment.refData();
-            cartFragment.changeToolbar();
+
         }
 
     }

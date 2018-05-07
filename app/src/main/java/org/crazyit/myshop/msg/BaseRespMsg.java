@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 
 public class BaseRespMsg implements Serializable {
+
     public final static int STATUS_SUCCESS=1;
     public final static int STATUS_ERROR=0;
     public final static String MSG_SUCCESS="success";
@@ -30,5 +31,4 @@ public class BaseRespMsg implements Serializable {
     public void setMessage(String message) {
         this.message = message;
     }
-
 }

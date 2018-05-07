@@ -21,6 +21,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.squareup.okhttp.Response;
 
 import org.crazyit.myshop.Contants;
+import org.crazyit.myshop.CreateOrderActivity;
 import org.crazyit.myshop.MainActivity;
 import org.crazyit.myshop.NewOrderActivity;
 import org.crazyit.myshop.R;
@@ -62,10 +63,13 @@ public class CartFragment extends BaseFragment implements View.OnClickListener {
     @ViewInject(R.id.btn_del)
     private Button mBtnDel;
 
+    @ViewInject(R.id.toolbar)
+    protected CnToolbar mToolbar;
+
     private CartAdapter mAdapter;
     private CartProvider cartProvider ;
 
-    private CnToolbar mToolbar;
+//    private CnToolbar mToolbar;
 
     private OkHttpHelper httpHelper=OkHttpHelper.getInstance();
 
@@ -105,7 +109,7 @@ public class CartFragment extends BaseFragment implements View.OnClickListener {
 //
 //            }
 //        });
-        Intent intent=new Intent(getActivity(), NewOrderActivity.class);
+        Intent intent=new Intent(getActivity(), CreateOrderActivity.class);
         startActivity(intent,true);
 
     }
@@ -130,19 +134,9 @@ public class CartFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof MainActivity) {
-            MainActivity activity = (MainActivity) context;
 
-            mToolbar=activity.findViewById(R.id.toolbar);
 
-            changeToolbar();
 
-        }
-
-    }
     public void changeToolbar(){
 
         mToolbar.hideSearchView();

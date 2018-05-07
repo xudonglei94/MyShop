@@ -18,6 +18,9 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+    repositories {
+        jcenter()
+    }
 }
 
 allprojects {
@@ -26,6 +29,9 @@ allprojects {
 //        翻墙比较慢我们把这个仓库改一下
         jcenter()
 //        maven{ url 'http://maven.oschina.net/content/groups/public/'}
+    }
+    repositories {
+        jcenter()
     }
 }
 

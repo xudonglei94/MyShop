@@ -17,6 +17,8 @@ import com.squareup.picasso.Picasso;
 import org.crazyit.myshop.AddressListActivity;
 import org.crazyit.myshop.Contants;
 import org.crazyit.myshop.LoginActivity;
+import org.crazyit.myshop.MyFavoriteActivity;
+import org.crazyit.myshop.MyOrderActivity;
 import org.crazyit.myshop.R;
 import org.crazyit.myshop.bean.User;
 import org.crazyit.myshop.weight.MyShopApplication;
@@ -45,11 +47,9 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public void init() {
-
-//        User user =  MyShopApplication.getInstance().getUser();
-//        showUser(user);
         showUser();
     }
+
     private  void showUser(){
 
         User user = MyShopApplication.getInstance().getUser();
@@ -60,16 +60,19 @@ public class MineFragment extends BaseFragment {
         }
         else{
 
+            //将退出的按钮显示出来
             mbtnLogout.setVisibility(View.VISIBLE);
             if(!TextUtils.isEmpty(user.getLogo_url()))
                 Picasso.with(getActivity()).load(Uri.parse(user.getLogo_url())).into(mImageHead);
 
+            //将username显示一下
             mTxtUserName.setText(user.getUsername());
 
         }
 
     }
 
+    //两个控件绑定一个OnClick,必须要传入一个view否则会报错
     @OnClick(value = {R.id.img_head,R.id.txt_username})
     public void toLoginActivity(View view){
 
@@ -78,10 +81,20 @@ public class MineFragment extends BaseFragment {
         startActivityForResult(intent, Contants.REQUEST_CODE);
 
     }
+    @OnClick(R.id.txt_my_orders)
+    public void toMyOrderActivity(View view){
+
+        startActivity(new Intent(getActivity(), MyOrderActivity.class),true);
+    }
     @OnClick(R.id.txt_my_address)
     public void toAddressActivity(View view){
 
         startActivity(new Intent(getActivity(), AddressListActivity.class),true);
+    }
+    @OnClick(R.id.txt_my_favorite)
+    public void toFavoriteActivity(View view){
+
+        startActivity(new Intent(getActivity(), MyFavoriteActivity.class),true);
     }
     @OnClick(R.id.btn_logout)
     public void logout(View view){

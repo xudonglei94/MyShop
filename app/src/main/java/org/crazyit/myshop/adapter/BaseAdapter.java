@@ -33,6 +33,9 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
         void OnItemClick(View view,int position);
     }
 
+    public BaseAdapter(Context context, int layoutResId) {
+        this(context, null, layoutResId);
+    }
 
     //当你需要什么东西参数的时候你都可以在你的构造器中声明这些参数!!!比如布局参数mLayoutResId等等
     public  BaseAdapter(Context context,List<T> datas,int layoutResId){
@@ -86,6 +89,8 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
 //        int itemCount = datas.size();
 //        datas.clear();
 //        this.notifyItemRangeRemoved(0,itemCount);
+        if(mDatas==null || mDatas.size()<=0)
+            return;
 
         for (Iterator it = mDatas.iterator(); it.hasNext();){
 
@@ -137,9 +142,11 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
     }
     public void refreshData(List<T> list){
 
+
+        clear();
         if(list !=null && list.size()>0){
 
-            clear();
+
             int size = list.size();
             for (int i=0;i<size;i++){
                 mDatas.add(i,list.get(i));

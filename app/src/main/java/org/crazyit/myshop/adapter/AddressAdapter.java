@@ -74,6 +74,7 @@ public class AddressAdapter extends SimpleAdapter<Address> {
     }
 
 
+    //对外提供一个方法来进行网络访问
     public interface AddressLisneter{
 
 

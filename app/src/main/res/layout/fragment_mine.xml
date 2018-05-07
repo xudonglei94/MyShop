@@ -69,6 +69,7 @@ android:layout_height="match_parent">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/txt_my_favorite"
             android:padding="@dimen/largePadding"
             android:background="@drawable/selector_list_item"
             android:drawableLeft="@drawable/icon_favorite"
@@ -92,18 +93,18 @@ android:layout_height="match_parent">
             android:text="@string/my_addresses"
             android:textColor="@color/black"/>
 
-        <!--<View style="@style/line_vertical"/>-->
+        <View style="@style/line_vertical"/>
 
-        <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:padding="@dimen/largePadding"-->
-        <!--android:background="@drawable/selector_list_item"-->
-        <!--android:drawableLeft="@drawable/icon_msg"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:drawablePadding="20dp"-->
-        <!--android:text="@string/my_msg"-->
-        <!--android:textColor="@color/black"/>-->
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/largePadding"
+        android:background="@drawable/selector_list_item"
+        android:drawableLeft="@drawable/icon_msg"
+        android:gravity="center_vertical"
+        android:drawablePadding="20dp"
+        android:text="@string/my_msg"
+        android:textColor="@color/black"/>
 
 
 

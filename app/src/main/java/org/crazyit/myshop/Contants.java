@@ -18,6 +18,20 @@ public class Contants  {
     public  static final int REQUEST_CODE=0;
     public  static final int REQUEST_CODE_PAYMENT=1;
 
+    public static final int SUCCESS = 1;
+    public static final int FAIL = -1;
+    public static final int CANCEL = -2;
+    public static final int INVALID = 0;
+
+    public static final int TAG_SAVE = 1;
+    public static final int TAG_COMPLETE = 2;
+
+    public static final int ADDRESS_ADD = 100;
+    public static final int ADDRESS_EDIT = 200;
+
+    public static final int CART = 1;
+    public static final int ORDER = 2;
+
     public static class API{
 
 
@@ -40,12 +54,16 @@ public class Contants  {
 
         public static final String USER_DETAIL=BASE_URL +"user/get?id=1";
 
-        public static final String ORDER_CREATE=BASE_URL +"/order/create";
-        public static final String ORDER_COMPLEPE=BASE_URL +"/order/complete";
+        public static final String ORDER_CREATE=BASE_URL +"order/create";
+        public static final String ORDER_COMPLEPE=BASE_URL +"order/complete";
+        public static final String ORDER_LIST = BASE_URL + "order/list";
 
         public static final String ADDRESS_LIST=BASE_URL +"addr/list";
         public static final String ADDRESS_CREATE=BASE_URL +"addr/create";
         public static final String ADDRESS_UPDATE=BASE_URL +"addr/update";
+        public static final String ADDRESS_DEL = BASE_URL + "addr/del";
+        public static final String FAVORITE_LIST = BASE_URL + "favorite/list";
+        public static final String FAVORITE_DEL = BASE_URL + "favorite/del";
 
 
     }

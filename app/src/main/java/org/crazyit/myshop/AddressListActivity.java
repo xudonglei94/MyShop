@@ -103,6 +103,7 @@ public class AddressListActivity extends BaseActivity {
 
     private void showAddress(List<Address> addresses) {
 
+        //对默认地址进行排序,并在Address中实现Comparable接口
         Collections.sort(addresses);
         if(mAdapter ==null) {
             mAdapter = new AddressAdapter(this, addresses, new AddressAdapter.AddressLisneter() {
@@ -128,12 +129,12 @@ public class AddressListActivity extends BaseActivity {
     public void updateAddress(Address address){
 
         Map<String,Object> params = new HashMap<>(1);
-        params.put("id",address.getId()+"");
+        params.put("id",address.getId());
         params.put("consignee",address.getConsignee());
         params.put("phone",address.getPhone());
         params.put("addr",address.getAddr());
         params.put("zip_code",address.getZipCode());
-        params.put("is_default",address.getIsDefault()+"");
+        params.put("is_default",address.getIsDefault());
 
         mHttpHelper.post(Contants.API.ADDRESS_UPDATE, params, new SpotsCallBack<BaseRespMsg>(this) {
 

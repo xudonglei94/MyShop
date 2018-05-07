@@ -124,7 +124,10 @@
         <activity android:name=".CreateOrderActivity" />
         <activity android:name=".PayResultActivity" />
         <activity android:name=".AddressListActivity" />
-        <activity android:name=".AddressAddActivity"></activity>
+        <activity android:name=".AddressAddActivity" />
+        <activity android:name=".MyOrderActivity" />
+        <activity android:name=".OrderDetailActivity" />
+        <activity android:name=".MyFavoriteActivity"></activity>
     </application>
 
 </manifest>

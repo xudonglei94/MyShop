@@ -214,7 +214,7 @@ public class CreateOrderActivity extends BaseActivity  implements View.OnClickLi
         String item_json = JSONUtil.toJSON(items);
 
         //我们写了五个请求参数
-        Map<String,String> params = new HashMap<>(5);
+        Map<String,Object> params = new HashMap<>(5);
         params.put("user_id",MyShopApplication.getInstance().getUser().getId()+"");
         params.put("item_json",item_json);
         params.put("pay_channel",payChannel);
@@ -301,7 +301,7 @@ public class CreateOrderActivity extends BaseActivity  implements View.OnClickLi
     //更改订单状态的方法
     private void changeOrderStatus(final int status){
 
-        Map<String,String> params = new HashMap<>(5);
+        Map<String,Object> params = new HashMap<>(5);
         params.put("order_num",orderNum);
         params.put("status",status+"");
 

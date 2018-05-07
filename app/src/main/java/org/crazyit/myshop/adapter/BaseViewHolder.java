@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +42,9 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     }
     public ImageView getImageView(int id){
        return  findView(id);
+    }
+    public CheckBox getCheckBox(int id) {
+        return findView(id);
     }
     public Button getButton(int id){
         return findView(id);

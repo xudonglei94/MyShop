@@ -1,6 +1,7 @@
 package org.crazyit.myshop.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.squareup.picasso.Picasso;
 
+import org.crazyit.myshop.AddressListActivity;
 import org.crazyit.myshop.Contants;
 import org.crazyit.myshop.LoginActivity;
 import org.crazyit.myshop.R;
@@ -44,19 +46,42 @@ public class MineFragment extends BaseFragment {
     @Override
     public void init() {
 
-        User user =  MyShopApplication.getInstance().getUser();
-        showUser(user);
+//        User user =  MyShopApplication.getInstance().getUser();
+//        showUser(user);
+        showUser();
+    }
+    private  void showUser(){
+
+        User user = MyShopApplication.getInstance().getUser();
+        if(user ==null){
+            mbtnLogout.setVisibility(View.GONE);
+            mTxtUserName.setText(R.string.to_login);
+
+        }
+        else{
+
+            mbtnLogout.setVisibility(View.VISIBLE);
+            if(!TextUtils.isEmpty(user.getLogo_url()))
+                Picasso.with(getActivity()).load(Uri.parse(user.getLogo_url())).into(mImageHead);
+
+            mTxtUserName.setText(user.getUsername());
+
+        }
+
     }
 
     @OnClick(value = {R.id.img_head,R.id.txt_username})
-    public void toLogin(View view){
+    public void toLoginActivity(View view){
 
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
 
-        if(MyShopApplication.getInstance().getUser() == null) {
-            Intent intent = new Intent(getContext(), LoginActivity.class);
-            startActivityForResult(intent, Contants.REQUEST_CODE);
-        }
+        startActivityForResult(intent, Contants.REQUEST_CODE);
 
+    }
+    @OnClick(R.id.txt_my_address)
+    public void toAddressActivity(View view){
+
+        startActivity(new Intent(getActivity(), AddressListActivity.class),true);
     }
     @OnClick(R.id.btn_logout)
     public void logout(View view){

@@ -122,7 +122,9 @@
             android:name="cmb.pb.ui.PBKeyboardActivity"
             android:theme="@style/CmbDialogStyleBottom" />
         <activity android:name=".CreateOrderActivity" />
-        <activity android:name=".PayResultActivity"></activity>
+        <activity android:name=".PayResultActivity" />
+        <activity android:name=".AddressListActivity" />
+        <activity android:name=".AddressAddActivity"></activity>
     </application>
 
 </manifest>

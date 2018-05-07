@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
-        Map<String,String> params = new HashMap<>(2);
+        Map<String,Object> params = new HashMap<>(2);
         params.put("phone",phone);
         params.put("password", DESUtil.encode(Contants.DES_KEY,pwd));
 

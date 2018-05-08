@@ -27,6 +27,7 @@
         style="@style/customTabLayout"
         app:tabGravity="fill"
         app:tabMode="fixed"
+        android:fillViewport="false"
         >
 
     </android.support.design.widget.TabLayout>

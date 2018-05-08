@@ -41,7 +41,11 @@ import com.squareup.okhttp.Response;
 /**
  * Created by Administrator on 2018/4/27.
  */
-
+/**
+ * 主页
+ * AndroidImageSlider 轮播广告的实现：SliderLayout
+ * RecyclerView 商品分类展示：
+ */
 public class HomeFragment extends Fragment {
 
     private static  final String TAG="HomeFragment";

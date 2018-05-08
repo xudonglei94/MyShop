@@ -4,8 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <!-- 热卖Fragment布局-->
+    <org.crazyit.myshop.weight.CnToolbar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetEnd="56dp"
+        app:isShowSearchView="false"
+        app:title="热卖"/>
+    <!--热卖刷新-->
     <com.cjj.MaterialRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/refresh_view"
         app:overlay="true"
         app:progress_colors="@array/material_colors"
@@ -14,9 +26,10 @@
         app:wave_show="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp">
+        >
+        <!--android:layout_marginTop="10dp"-->
 
-
+        <!--热卖数据显示-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"

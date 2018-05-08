@@ -1,7 +1,6 @@
 package org.crazyit.myshop;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
@@ -14,6 +13,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.squareup.okhttp.Response;
 
+import org.crazyit.myshop.Activity.MainActivity;
 import org.crazyit.myshop.Utils.CountTimerView;
 import org.crazyit.myshop.Utils.DESUtil;
 import org.crazyit.myshop.Utils.OkHttpHelper;

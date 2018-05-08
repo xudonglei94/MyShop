@@ -62,7 +62,7 @@
 
         </RelativeLayout>
         <View
-            style="@style/line_vertical"
+            style="@style/line_horizontal"
 
             />
 
@@ -88,7 +88,7 @@
                 />
 
             <View
-                style="@style/line_horizontal"/>
+                style="@style/line_vertical"/>
 
             <org.crazyit.myshop.weight.ClearEditText
                 android:id="@+id/edittxt_phone"
@@ -105,7 +105,7 @@
         </LinearLayout>
 
         <View
-            style="@style/line_vertical"
+            style="@style/line_horizontal"
 
             />
 
@@ -130,7 +130,7 @@
                 />
 
             <View
-                style="@style/line_horizontal"/>
+                style="@style/line_vertical"/>
 
             <org.crazyit.myshop.weight.ClearEditText
                 android:id="@+id/edittxt_pwd"

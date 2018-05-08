@@ -12,7 +12,9 @@ import android.view.View;
 /**
  * Created by Administrator on 2018/5/2.
  */
-
+/**
+ * 普通分割线
+ */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{
@@ -40,7 +42,11 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         }
         mOrientation = orientation;
     }
-
+    /**
+     * 该方法会在绘制 item 之前调用，绘制范围是 RecyclerView 范围内的任意位置，不局限在 item 中。
+     * @param c
+     * @param parent
+     */
     @Override
     public void onDraw(Canvas c, RecyclerView parent) {
 //        Log.v("recyclerview - itemdecoration", "onDraw()");
@@ -52,7 +58,11 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         }
 
     }
-
+    /**
+     * 绘制纵向分割线
+     * @param c
+     * @param parent
+     */
     public void drawVertical(Canvas c, RecyclerView parent) {
         final int left = parent.getPaddingLeft();
         final int right = parent.getWidth() - parent.getPaddingRight();
@@ -69,7 +79,11 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             mDivider.draw(c);
         }
     }
-
+    /**
+     * 绘制横向分割线
+     * @param c
+     * @param parent
+     */
     public void drawHorizontal(Canvas c, RecyclerView parent) {
         final int top = parent.getPaddingTop();
         final int bottom = parent.getHeight() - parent.getPaddingBottom();
@@ -85,7 +99,12 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             mDivider.draw(c);
         }
     }
-
+    /**
+     * 通过对构造方法中传入的 orientation 判断后设置 padding
+     * @param outRect
+     * @param itemPosition
+     * @param parent
+     */
     @Override
     public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
         if (mOrientation == VERTICAL_LIST) {

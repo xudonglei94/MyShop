@@ -4,14 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:gravity="center"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="#fff"
-    app:contentPadding="10dp"
-
+    android:layout_margin="2dp"
+    app:contentPadding="5dp"
     app:cardCornerRadius="4dp">
-
+    <!-- 首页商品cardView布局-->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -21,53 +20,57 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="热门活动"
-            android:textSize="20dp"
+            android:textSize="16sp"
             android:textColor="@color/black"
-            android:paddingTop="10dp"
+            android:paddingTop="5dp"
             />
         <View
-            style="@style/line_vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"></View>
+            style="@style/line_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"/>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
                 android:id="@+id/layout_left"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
                 <ImageView
                     android:id="@+id/imgview_small_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:src="@drawable/img_0_small1"
                     />
                 <View
                     android:id="@+id/line2"
-                    style="@style/line_vertical"
+                    style="@style/line_horizontal"
 
-                    ></View>
+                    />
                 <ImageView
                     android:id="@+id/imgview_small_bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:src="@drawable/img_0_small2"
                     />
             </LinearLayout>
             <View
                 android:id="@+id/line"
 
-                style="@style/line_horizontal"
+                style="@style/line_vertical"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 />
             <ImageView
                 android:id="@+id/imgview_big"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:src="@drawable/img_big_0"
                 />

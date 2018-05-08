@@ -29,7 +29,6 @@
         android:layout_height="wrap_content"
         android:textColor="@color/border_color"
         android:textSize="12sp"
-        android:layout_marginTop="40dp"
         android:padding="@dimen/largePadding"
 
         />
@@ -75,8 +74,8 @@
                 />
         </LinearLayout>
 
-        <View
-            style="@style/line_vertical"/>
+        <!--<View-->
+            <!--style="@style/line_horizontal"/>-->
 
 
     </LinearLayout>

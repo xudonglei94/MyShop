@@ -11,27 +11,32 @@
 
     <Button
         android:id="@+id/btn_sub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textSize="20dp"
         android:background="@drawable/bg_btn_style_white"
-        android:textColor="@color/black"
+        android:textColor="@color/grey"
+        android:gravity="center"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:text="-"/>
 
     <TextView
         android:id="@+id/etxt_num"
+        android:textSize="20dp"
+        android:textColor="@color/grey"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:minWidth="100dp"
-
-        android:gravity="center"/>
+        android:layout_height="30dp"
+        android:minWidth="60dp"
+        android:gravity="center"
+        android:text="1"/>
 
     <Button
         android:id="@+id/btn_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:background="@drawable/bg_btn_style_white"
-        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textColor="@color/grey"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:gravity="center"
         android:text="+"/>
 
 

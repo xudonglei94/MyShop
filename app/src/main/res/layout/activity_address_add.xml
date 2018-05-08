@@ -16,6 +16,7 @@
         app:contentInsetEnd="56dp"
         app:title="@string/add_addresses"
         app:rightButtonText="保存"
+
         />
 
 

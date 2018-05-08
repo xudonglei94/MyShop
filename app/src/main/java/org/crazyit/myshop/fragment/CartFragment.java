@@ -1,41 +1,29 @@
 package org.crazyit.myshop.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import com.lidroid.xutils.ViewUtils;
+
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
-import com.squareup.okhttp.Response;
 
-import org.crazyit.myshop.Contants;
 import org.crazyit.myshop.CreateOrderActivity;
-import org.crazyit.myshop.MainActivity;
-import org.crazyit.myshop.NewOrderActivity;
 import org.crazyit.myshop.R;
 import org.crazyit.myshop.Utils.CartProvider;
 import org.crazyit.myshop.Utils.OkHttpHelper;
-import org.crazyit.myshop.Utils.SpotsCallBack;
 import org.crazyit.myshop.adapter.CartAdapter;
 import org.crazyit.myshop.bean.ShoppingCart;
-import org.crazyit.myshop.bean.User;
 import org.crazyit.myshop.weight.CnToolbar;
 
 import java.util.List;
-
-import static android.content.Intent.ACTION_EDIT;
 
 /**
  * Created by Administrator on 2018/4/27.

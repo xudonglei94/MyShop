@@ -4,7 +4,12 @@ package org.crazyit.myshop.bean;
  * Created by Administrator on 2018/4/27.
  */
 
-public class Tab {
+import java.io.Serializable;
+
+/**
+ * 首页底部导航
+ */
+public class Tab implements Serializable {
 
     private  int title;
     private  int icon;

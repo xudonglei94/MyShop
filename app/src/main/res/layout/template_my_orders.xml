@@ -9,36 +9,37 @@
 
     >
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/txt_order_num"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:text="订单号："
+            android:maxLines="1"
+            android:layout_alignParentLeft="true"
             android:textColor="@color/gray"
-            android:text="dingd"
-            android:layout_weight="1"
+            android:textSize="12sp"
 
             />
 
         <TextView
             android:id="@+id/txt_status"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="status"
             android:textSize="16sp"
-            android:gravity="right"
-            android:layout_weight="1"
 
             />
 
-    </LinearLayout>
+    </RelativeLayout>
     <View
-        style="@style/line_vertical"
+        style="@style/line_horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         />
@@ -47,14 +48,17 @@
 
 
     <com.w4lle.library.NineGridlayout
-        android:layout_marginTop="8dp"
         android:id="@+id/iv_ngrid_layout"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp" />
 
 
     <View
-        style="@style/line_vertical"
+        style="@style/line_horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         />

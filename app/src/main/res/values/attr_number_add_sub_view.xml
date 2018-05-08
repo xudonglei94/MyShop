@@ -7,6 +7,11 @@
     <attr name="editBackground" format="reference"/>
     <attr name="buttonAddBackgroud" format="reference"/>
     <attr name="buttonSubBackgroud" format="reference"/>
+    <attr name="btnAddBackground" format="reference"/>
+    <attr name="btnSubBackground" format="reference"/>
+    <attr name="textViewBackground" format="reference"/>
+    <attr name="maxvalue" format="integer|reference"/>
+    <attr name="minvalue" format="integer|reference"/>
 
 
     <declare-styleable name="NumberAddSubView">
@@ -17,6 +22,11 @@
         <attr name="editBackground"/>
         <attr name="buttonAddBackgroud"/>
         <attr name="buttonSubBackgroud"/>
+        <attr name="btnAddBackground" />
+        <attr name="btnSubBackground" />
+        <attr name="textViewBackground" />
+        <attr name="minvalue"/>
+        <attr name="maxvalue"/>
 
     </declare-styleable>
 </resources>

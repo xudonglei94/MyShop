@@ -15,7 +15,9 @@ import android.view.View;
 /**
  * Created by Administrator on 2018/5/2.
  */
-
+/**
+ * 网格布局分割线
+ */
 public class DividerGridItemDecoration extends RecyclerView.ItemDecoration
 {
 

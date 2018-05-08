@@ -4,25 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <!--购物车Fragment-->
     <org.crazyit.myshop.weight.CnToolbar
         android:id="@id/toolbar"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:contentInsetEnd="56dp"
+        app:isShowSearchView="false"
         app:title="购物车"
         app:rightButtonText="编辑"
         android:layout_alignParentTop="true"
         />
 
 
-
+    <!--购物车数据-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp">
+        android:layout_below="@+id/toolbar">
 
 
     </android.support.v7.widget.RecyclerView>
@@ -33,10 +35,10 @@
         android:layout_alignParentBottom="true"
         android:background="#802f4f4f"
         android:gravity="center_vertical"
-        android:paddingBottom="10dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:paddingTop="10dp">
+        android:paddingTop="5dp">
 
         <CheckBox
             android:id="@+id/checkbox_all"
@@ -46,42 +48,50 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:checked="true"
+            android:textSize="14sp"
+            android:textColor="@color/white"
             android:text="全选" />
 
 
         <TextView
             android:id="@+id/txt_total"
+            android:text="合计"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/checkbox_all"
-            android:text="合计"
-            android:textSize="30dp" />
+            android:textColor="@color/white"
+
+            />
 
         <Button
             android:id="@+id/btn_order"
-            style="@style/bigRedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:minHeight="60dp"
-            android:minWidth="120dp"
-            android:text="去结算" />
+            android:minHeight="30dp"
+            android:minWidth="80dp"
+            android:text="去结算"
+            style="@style/bigRedButton"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             />
 
 
         <Button
             android:id="@+id/btn_del"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="删除"
+            android:minHeight="40dp"
+            android:minWidth="80dp"
+            android:visibility="gone"
             style="@style/bigRedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:minHeight="60dp"
-            android:minWidth="120dp"
-            android:text="删除"
-            android:visibility="gone" />
+             />
 
 
     </RelativeLayout>

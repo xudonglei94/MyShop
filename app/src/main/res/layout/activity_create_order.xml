@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:textSize="18sp"
-                        android:text="Ivan (136****4237)"
+                        android:text="徐冬磊(136****4237)"
                         android:textColor="@color/black"
                         />
                     <TextView

@@ -1,6 +1,7 @@
 package org.crazyit.myshop;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,14 +11,24 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.squareup.okhttp.Response;
 
 import org.crazyit.myshop.Utils.CartProvider;
+import org.crazyit.myshop.Utils.OkHttpHelper;
+import org.crazyit.myshop.Utils.SpotsCallBack;
 import org.crazyit.myshop.Utils.ToastUtils;
+import org.crazyit.myshop.bean.Favorites;
+import org.crazyit.myshop.bean.User;
 import org.crazyit.myshop.bean.Wares;
 import org.crazyit.myshop.weight.CnToolbar;
+import org.crazyit.myshop.weight.MyShopApplication;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import dmax.dialog.SpotsDialog;
@@ -38,6 +49,7 @@ public class WareDetailActivity extends BaseActivity implements View.OnClickList
     private CartProvider cartProvider;
 
     private SpotsDialog mDialog;
+    private OkHttpHelper okHttpHelper = OkHttpHelper.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,51 +146,6 @@ public class WareDetailActivity extends BaseActivity implements View.OnClickList
         // 启动分享GUI
         oks.show(this);
     }
-//    private void showShare() {
-//        ShareSDK.initSDK(this);
-//
-//
-//        OnekeyShare oks = new OnekeyShare();
-//        //关闭sso授权
-//        oks.disableSSOWhenAuthorize();
-//
-//// 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
-//        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
-//        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
-//        oks.setTitle(getString(R.string.share));
-//
-//        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-//        oks.setTitleUrl("http://www.cniao5.com");
-//
-//        // text是分享文本，所有平台都需要这个字段
-//        oks.setText(mWare.getName());
-//
-//        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-////        oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
-//        oks.setImageUrl(mWare.getImgUrl());
-//
-//        // url仅在微信（包括好友和朋友圈）中使用
-//        oks.setUrl("http://www.cniao5.com");
-//        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
-//        oks.setComment(mWare.getName());
-//
-//        // site是分享此内容的网站名称，仅在QQ空间使用
-//        oks.setSite(getString(R.string.app_name));
-//
-//        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-//        oks.setSiteUrl("http://www.cniao5.com");
-//
-//        // 启动分享GUI
-//        oks.show(this);
-//    }
-//
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//
-//        ShareSDK.stopSDK(this);
-//    }
-
 
 
     //写一个类判断是否加载完成,如果加载完成那么我们便调用showDetail()方法
@@ -198,6 +165,36 @@ public class WareDetailActivity extends BaseActivity implements View.OnClickList
 
 
         }
+    }
+    private void addToFavorite(){
+
+        User user = MyShopApplication.getInstance().getUser();
+
+        if(user==null){
+            startActivity(new Intent(this,LoginActivity.class),true);
+        }
+
+
+        Long userId = MyShopApplication.getInstance().getUser().getId();
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("user_id",userId);
+        params.put("ware_id",mWare.getId());
+
+
+        okHttpHelper.post(Contants.API.FAVORITE_CREATE, params, new SpotsCallBack<List<Favorites>>(this) {
+            @Override
+            public void onSuccess(Response response, List<Favorites> favorites) {
+                ToastUtils.show(WareDetailActivity.this,"已添加到收藏夹");
+            }
+
+            @Override
+            public void onError(Response response, int code, Exception e) {
+
+                LogUtils.d("code:"+code);
+            }
+        });
+
     }
     //写一个通信的接口
     class WebAppInterface{
@@ -234,6 +231,7 @@ public class WareDetailActivity extends BaseActivity implements View.OnClickList
 
         @JavascriptInterface
         public void addFavorites(long id){
+            addToFavorite();
 
 
         }

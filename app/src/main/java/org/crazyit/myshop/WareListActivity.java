@@ -1,5 +1,6 @@
 package org.crazyit.myshop;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 import org.crazyit.myshop.Utils.Pager;
+import org.crazyit.myshop.adapter.BaseAdapter;
 import org.crazyit.myshop.adapter.HWAdapter;
 import org.crazyit.myshop.adapter.decoration.DividerItemDecoration;
 import org.crazyit.myshop.bean.Page;
@@ -194,6 +196,17 @@ public class WareListActivity extends AppCompatActivity implements Pager.OnPageL
 
         if (mWaresAdapter == null) {
             mWaresAdapter = new HWAdapter(this, datas);
+            mWaresAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+                @Override
+                public void OnItemClick(View view, int position) {
+                    Wares wares = mWaresAdapter.getItem(position);
+
+                    Intent intent = new Intent(WareListActivity.this, WareDetailActivity.class);
+
+                    intent.putExtra(Contants.WARE,wares);
+                    startActivity(intent);
+                }
+            });
             mRecyclerview_wares.setAdapter(mWaresAdapter);
             mRecyclerview_wares.setLayoutManager(new LinearLayoutManager(this));
             mRecyclerview_wares.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));

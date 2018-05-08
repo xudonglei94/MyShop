@@ -63,6 +63,7 @@ public class Contants  {
         public static final String ADDRESS_UPDATE=BASE_URL +"addr/update";
         public static final String ADDRESS_DEL = BASE_URL + "addr/del";
         public static final String FAVORITE_LIST = BASE_URL + "favorite/list";
+        public static final String FAVORITE_CREATE=BASE_URL +"favorite/create";
         public static final String FAVORITE_DEL = BASE_URL + "favorite/del";
 
 

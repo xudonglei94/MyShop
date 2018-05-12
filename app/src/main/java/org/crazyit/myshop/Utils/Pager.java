@@ -9,9 +9,8 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import org.crazyit.myshop.bean.Page;
-import org.crazyit.myshop.weight.MyShopApplication;
-import org.crazyit.myshop.Utils.OkHttpHelper;
-import java.io.IOException;
+import org.crazyit.myshop.http.OkHttpHelper;
+import org.crazyit.myshop.http.SpotsCallBack;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -584,7 +583,7 @@ public class Pager {
     }
 
 
-    class  RequestCallBack<T> extends SpotsCallBack<Page<T>>{
+    class  RequestCallBack<T> extends SpotsCallBack<Page<T>> {
 
         public RequestCallBack(Context context) {
             super(context);

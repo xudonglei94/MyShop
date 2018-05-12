@@ -66,13 +66,13 @@ public class CnToolbar extends Toolbar {
             }
 
             //右边按钮图片
-            final Drawable rightIcon = a.getDrawable(R.styleable.CnToolbar_rightButtonIcon);
-            if (rightIcon != null) {
+            final Drawable rightImgButtonIcon = a.getDrawable(R.styleable.CnToolbar_RightImgButtonIcon);
+            if (rightImgButtonIcon != null) {
                 //setNavigationIcon(navIcon)
-                setRightButtonIcon(rightIcon);
+                setRightImgButtonIcon(rightImgButtonIcon);
             }
             //按钮文字
-            CharSequence rightButtonText = a.getText(R.styleable.CnToolbar_rightButtonText);
+            CharSequence rightButtonText = a.getText(R.styleable.CnToolbar_RightButtonText);
             if(rightButtonText !=null){
                 setRightButtonText(rightButtonText);
             }
@@ -97,7 +97,79 @@ public class CnToolbar extends Toolbar {
 
         }
     }
+    //一致
+    public  void setRightImgButtonIcon(int icon){
+        setRightImgButtonIcon(getResources().getDrawable(icon));
 
+    }
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public void setRightImgButtonIcon(Drawable icon) {
+        if (icon != null) {
+            mRightButton.setBackground(icon);
+            showRightButton();
+        }
+    }
+
+    public void setRightButtonOnClickLinster(OnClickListener linster) {
+        if (mRightButton != null)
+            mRightButton.setOnClickListener(linster);
+    }
+
+    public void setLeftButtonOnClickLinster(OnClickListener linster) {
+        if (mLeftButton != null)
+            mLeftButton.setOnClickListener(linster);
+    }
+
+    public void setleftButtonIcon(Drawable icon) {
+        if (icon != null) {
+            mLeftButton.setImageDrawable(icon);
+            showRightButton();
+        }
+    }
+
+
+
+
+
+
+    public void setleftButtonIcon(int id) {
+        setleftButtonIcon(getResources().getDrawable(id));
+    }
+    /**
+     * 设置按钮文字
+     *
+     * @param text
+     */
+    public void setRightButtonText(CharSequence text){
+        mRightButton.setText(text);
+        mRightButton.setVisibility(VISIBLE);
+    }
+    /**
+     * 获取按钮
+     *
+     * @return
+     */
+    public  Button getRightButton(){
+        return this.mRightButton;
+    }
+    /**
+     * 设置按钮文字
+     *
+     * @param id
+     */
+    public void setRightButtonText(int id){
+        setRightButtonText(getResources().getString(id));
+    }
+
+    /**
+     * 按钮监听
+     *
+     * @param listener
+     */
+    public void setRightButtonOnClickListener(OnClickListener listener) {
+        if (listener != null)
+        mRightButton.setOnClickListener(listener);
+    }
     /**
      * 初始化控件
      */
@@ -106,10 +178,10 @@ public class CnToolbar extends Toolbar {
         if (mView == null) {
             mInflater=LayoutInflater.from(getContext());
             mView=mInflater.inflate(R.layout.toolbar,null);
-
+            mLeftButton = (ImageButton) mView.findViewById(R.id.toolbar_left_button);
             mTextView = mView.findViewById(R.id.toolbar_title);
             mSearchView = mView.findViewById(R.id.toolbar_searchview);
-            mRightButton = (Button)mView.findViewById(R.id.toolbar_rightButton);
+            mRightButton = (Button)mView.findViewById(R.id.toolbar_right_button);
             mRightImgButton = (ImageButton) mView.findViewById(R.id.toolbar_right_imgbutton);
             mSearchView.setOnFocusChangeListener(new OnFocusChangeListener() {
                 @Override
@@ -130,71 +202,6 @@ public class CnToolbar extends Toolbar {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public void setRightButtonIcon(Drawable icon) {
-        if (mRightButton != null) {
-            mRightButton.setBackground(icon);
-            mRightButton.setVisibility(VISIBLE);
-        }
-    }
-    public  void setRightButtonIcon(int icon){
-        setRightButtonIcon(getResources().getDrawable(icon));
-
-    }
-    public void setRightButtonOnClickLinster(OnClickListener linster) {
-        if (mRightButton != null)
-            mRightButton.setOnClickListener(linster);
-    }
-
-    public void setLeftButtonOnClickLinster(OnClickListener linster) {
-        if (mLeftButton != null)
-            mLeftButton.setOnClickListener(linster);
-    }
-
-    public void setleftButtonIcon(Drawable icon) {
-        if (icon != null) {
-            mLeftButton.setImageDrawable(icon);
-            showRightButton();
-        }
-    }
-
-    public void setleftButtonIcon(int id) {
-        setleftButtonIcon(getResources().getDrawable(id));
-    }
-    /**
-     * 按钮监听
-     *
-     * @param listener
-     */
-    public void setRightButtonOnClickListener(OnClickListener listener) {
-        mRightButton.setOnClickListener(listener);
-    }
-    /**
-     * 设置按钮文字
-     *
-     * @param text
-     */
-    public void setRightButtonText(CharSequence text){
-        mRightButton.setText(text);
-        mRightButton.setVisibility(VISIBLE);
-    }
-    /**
-     * 设置按钮文字
-     *
-     * @param id
-     */
-    public void setRightButtonText(int id){
-        setRightButtonText(getResources().getString(id));
-    }
-
-    /**
-     * 获取按钮
-     *
-     * @return
-     */
-    public  Button getRightButton(){
-        return this.mRightButton;
-    }
     /**
      * 重写setTitle()方法
      *
@@ -211,6 +218,7 @@ public class CnToolbar extends Toolbar {
      */
     @Override
     public void setTitle(CharSequence title) {
+        super.setTitle(title);
 
         initView();
         if (mTextView != null) {

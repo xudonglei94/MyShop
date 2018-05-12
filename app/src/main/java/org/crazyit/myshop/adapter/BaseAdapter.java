@@ -1,12 +1,15 @@
 package org.crazyit.myshop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.crazyit.myshop.Contants;
 import org.crazyit.myshop.bean.Wares;
+import org.crazyit.myshop.Activity.WareDetailActivity;
 
 import java.util.Iterator;
 import java.util.List;
@@ -14,7 +17,11 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/5/1.
  */
-
+/**
+ * BaseAdapter封装
+ * @param <T> 数据类型
+ * @param <H> BaseViewHolder
+ */
 public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerView.Adapter<BaseViewHolder>{
 
     protected static final String TAG = BaseAdapter.class.getSimpleName();
@@ -42,8 +49,81 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
         this.mDatas=datas;
         this.mContext=context;
         this.mLayoutResId=layoutResId;
-       // mInflater=LayoutInflater.from(context);
+        mInflater=LayoutInflater.from(context);
 
+    }
+
+    /**
+     * 删除数据
+     */
+    public void clearData(){
+
+        if(mDatas==null || mDatas.size()<=0)
+            return;
+
+        for (Iterator it = mDatas.iterator(); it.hasNext();){
+
+            T t = (T) it.next();
+            int position = mDatas.indexOf(t);
+            it.remove();
+            notifyItemRemoved(position);
+        }
+    }
+    public void addData(List<T> datas){
+
+        addData(0,datas);
+    }
+    /**
+     * 添加数据
+     * @param position
+     * @param list
+     */
+    public void addData(int position,List<T> list){
+
+        if(list !=null && list.size()>0) {
+
+            for (T t:list) {
+                mDatas.add(position, t);
+                notifyItemInserted(position);
+            }
+
+        }
+    }
+    /**
+     * 刷新数据
+     * @param list
+     */
+    public void refreshData(List<T> list){
+
+
+        clearData();
+        if(list !=null && list.size()>0){
+
+
+            int size = list.size();
+            for (int i=0;i<size;i++){
+                mDatas.add(i,list.get(i));
+                notifyItemInserted(i);
+            }
+
+        }
+    }
+    /**
+     * 加载更多
+     * @param list
+     */
+    public void loadMoreData(List<T> list){
+
+        if(list !=null && list.size()>0){
+
+            int size = list.size();
+            int begin = mDatas.size();
+            for (int i=0;i<size;i++){
+                mDatas.add(list.get(i));
+                notifyItemInserted(i+begin);
+            }
+
+        }
     }
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,15 +142,6 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
         bindData((H)holder,t);
 
     }
-
-    @Override
-    public int getItemCount() {
-        if (mDatas==null||mDatas.size()<=0)
-        return 0;
-
-        return mDatas.size();
-    }
-
     public  T getItem(int position){
         if (position>=mDatas.size())
             return null;
@@ -78,34 +149,13 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
         return  mDatas.get(position);
     }
 
-    //自己写的方法先隐藏
-//    public void clearData(){
-//        mDatas.clear();
-//        notifyItemRangeRemoved(0,mDatas.size());
-//
-//    }
+    @Override
+    public int getItemCount() {
+        if (mDatas==null||mDatas.size()<=0)
+            return 0;
 
-    public void clear(){
-//        int itemCount = datas.size();
-//        datas.clear();
-//        this.notifyItemRangeRemoved(0,itemCount);
-        if(mDatas==null || mDatas.size()<=0)
-            return;
-
-        for (Iterator it = mDatas.iterator(); it.hasNext();){
-
-            T t = (T) it.next();
-            int position = mDatas.indexOf(t);
-            it.remove();
-            notifyItemRemoved(position);
-        }
+        return mDatas.size();
     }
-    //自己写的方法先隐藏
-//    public void clearData(){
-//        mDatas.clear();
-//        notifyItemRangeRemoved(0,mDatas.size());
-//
-//    }
 
 
     //从列表中删除某项
@@ -122,70 +172,17 @@ public abstract class BaseAdapter<T,H extends  BaseViewHolder> extends RecyclerV
         return  mDatas;
     }
 
-    public void addData(List<T> datas){
-
-        addData(0,datas);
-    }
-
-
-
-    public void addData(int position,List<T> list){
-
-        if(list !=null && list.size()>0) {
-
-            for (T t:list) {
-                mDatas.add(position, t);
-                notifyItemInserted(position);
-            }
-
-        }
-    }
-    public void refreshData(List<T> list){
-
-
-        clear();
-        if(list !=null && list.size()>0){
-
-
-            int size = list.size();
-            for (int i=0;i<size;i++){
-                mDatas.add(i,list.get(i));
-                notifyItemInserted(i);
-            }
-
-        }
-    }
-    //之前自己写的方法隐藏
-    //    public void addData(int position,List<T> datas){
-//
-//        if(datas !=null && datas.size()>0) {
-//
-//            mDatas.addAll(datas);
-//            notifyItemRangeChanged(position, mDatas.size());
-//        }
-//
-//    }
-
-    public void loadMoreData(List<T> list){
-
-        if(list !=null && list.size()>0){
-
-            int size = list.size();
-            int begin = mDatas.size();
-            for (int i=0;i<size;i++){
-                mDatas.add(list.get(i));
-                notifyItemInserted(i+begin);
-            }
-
-        }
-
-
-
-
-
-
-}
+    //绑定数据
     public abstract void   bindData(H viewHolder,T t);
+    //显示商品详情
+    public void showDetail(Wares wares){
+
+        Intent intent = new Intent(mContext, WareDetailActivity.class);
+
+        intent.putExtra(Contants.WARE,wares);
+
+        mContext.startActivity(intent);
+    }
 
     public  void setOnItemClickListener(OnItemClickListener listener){
         this.listener=listener;

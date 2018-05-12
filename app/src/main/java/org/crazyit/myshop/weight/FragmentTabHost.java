@@ -61,16 +61,19 @@ import android.widget.TabWidget;
  * development/samples/Support4Demos/src/com/example/android/supportv4/app/
  * FragmentTabsFragmentSupport.java complete}
  */
+/**
+ * 功能描述：修改过的FragmentTabHost,保存fragment实例不销毁
+ */
 public class FragmentTabHost extends TabHost implements
         TabHost.OnTabChangeListener {
     private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
-    private FrameLayout mRealTabContent;
+    private FrameLayout mRealTabContent;//用来设置TabContent，用android.R.id.tabcontent来标识
     private Context mContext;
-    private FragmentManager mFragmentManager;
-    private int mContainerId;
-    private OnTabChangeListener mOnTabChangeListener;
-    private TabInfo mLastTab;
-    private boolean mAttached;
+    private FragmentManager mFragmentManager;//fragment管理器
+    private int mContainerId;//TabContent的id
+    private OnTabChangeListener mOnTabChangeListener;//tab切换监听
+    private TabInfo mLastTab;//tab类的封装
+    private boolean mAttached;//选项卡是否被选中
 
     static final class TabInfo {
         private final String tag;
@@ -84,14 +87,21 @@ public class FragmentTabHost extends TabHost implements
             args = _args;
         }
     }
-
+    /**
+     * TabContent数据初始化，当选项卡被选择时调用
+     */
     static class DummyTabFactory implements TabContentFactory {
         private final Context mContext;
 
         public DummyTabFactory(Context context) {
             mContext = context;
         }
-
+        /**
+         * 用tag来标识一个context，在实现类里可以使用LayoutInflater填充出来。
+         *
+         * @param tag
+         * @return
+         */
         @Override
         public View createTabContent(String tag) {
             View v = new View(mContext);
@@ -100,19 +110,31 @@ public class FragmentTabHost extends TabHost implements
             return v;
         }
     }
-
+    /**
+     * BaseSavedState是View的一个静态内部类，把控件的属性打包到parcel容器，
+     * Activity的onSaveInstanceState、onRestoreInstanceState最终也会调用到控件的这两个同名方法。
+     */
     static class SavedState extends BaseSavedState {
         String curTab;
 
         SavedState(Parcelable superState) {
             super(superState);
         }
-
+        /**
+         * 当读取parcel时调用，Parcel是一个容器，Android系统中的binder进程间通信(IPC)就使用了Parcel类来进行
+         *
+         * @param in
+         */
         private SavedState(Parcel in) {
             super(in);
             curTab = in.readString();
         }
-
+        /**
+         * 写入接口函数，打包
+         *
+         * @param out
+         * @param flags
+         */
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
@@ -125,7 +147,11 @@ public class FragmentTabHost extends TabHost implements
                     + Integer.toHexString(System.identityHashCode(this))
                     + " curTab=" + curTab + "}";
         }
-
+        /**
+         * 读取接口，目的是要从Parcel中构造一个实现了Parcelable的类的实例出来。
+         * 因为实现类在这里还是不可知的，所以需要用到模板的方法名通过模板参数传入
+         * 为了实现模板参数的传入，这里定义了Creator嵌入接口，内含两个接口函数分别返回单个和多个继承类实例
+         */
         public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
             public SavedState createFromParcel(Parcel in) {
                 return new SavedState(in);
@@ -148,7 +174,16 @@ public class FragmentTabHost extends TabHost implements
         super(context, attrs);
         initFragmentTabHost(context, attrs);
     }
-
+    /**
+     * obtainStyledAttributes:返回一个设计样式属性包含了set里面的attrs参数
+     * set：现在检索的属性值；
+     * attrs：制定的检索的属性值
+     * defStyleAttr：指向当前theme某个item描述的style 该style指定了一些默认值为这个TypedArray；
+     * defStyleRes:defStyleRes找不到或者为0，可以直接指定某个style
+     *
+     * @param context
+     * @param attrs
+     */
     private void initFragmentTabHost(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs,
                 new int[]{android.R.attr.inflatedId}, 0, 0);
@@ -157,24 +192,29 @@ public class FragmentTabHost extends TabHost implements
 
         super.setOnTabChangedListener(this);
     }
-
+    /**
+     * 判断是否设置tab显示的布局
+     *
+     * @param context
+     */
     private void ensureHierarchy(Context context) {
         // If owner hasn't made its own view hierarchy, then as a convenience
         // we will construct a standard one here.
         if (findViewById(android.R.id.tabs) == null) {
+            //设置布局
             LinearLayout ll = new LinearLayout(context);
             ll.setOrientation(LinearLayout.VERTICAL);
             addView(ll, new LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT));
-
+            //添加tab样式
             TabWidget tw = new TabWidget(context);
             tw.setId(android.R.id.tabs);
             tw.setOrientation(TabWidget.HORIZONTAL);
             ll.addView(tw, new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT, 0));
-
+            //设置fragmentLayout样式
             FrameLayout fl = new FrameLayout(context);
             fl.setId(android.R.id.tabcontent);
             ll.addView(fl, new LinearLayout.LayoutParams(0, 0, 0));
@@ -197,7 +237,12 @@ public class FragmentTabHost extends TabHost implements
         throw new IllegalStateException(
                 "Must call setup() that takes a Context and FragmentManager");
     }
-
+    /**
+     * 加载tab布局
+     *
+     * @param context
+     * @param manager
+     */
     public void setup(Context context, FragmentManager manager) {
         ensureHierarchy(context); // Ensure views required by super.setup()
         super.setup();
@@ -221,7 +266,9 @@ public class FragmentTabHost extends TabHost implements
             setId(android.R.id.tabhost);
         }
     }
-
+    /**
+     * 判断是否设置tab显示的样式
+     */
     private void ensureContent() {
         if (mRealTabContent == null) {
             mRealTabContent = (FrameLayout) findViewById(mContainerId);
@@ -232,12 +279,22 @@ public class FragmentTabHost extends TabHost implements
             }
         }
     }
-
+    /**
+     * tab切换监听
+     *
+     * @param l
+     */
     @Override
     public void setOnTabChangedListener(OnTabChangeListener l) {
         mOnTabChangeListener = l;
     }
-
+    /**
+     * 添加tab选项卡
+     *
+     * @param tabSpec 选项卡的indicator，content，tag数据封装，用来跟踪选项卡
+     * @param clss    选项卡显示的类
+     * @param args    数据传递
+     */
     public void addTab(TabSpec tabSpec, Class<?> clss, Bundle args) {
         tabSpec.setContent(new DummyTabFactory(mContext));
         String tag = tabSpec.getTag();
@@ -265,7 +322,7 @@ public class FragmentTabHost extends TabHost implements
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        String currentTab = getCurrentTabTag();
+        String currentTab = getCurrentTabTag();//获取当前tab
 
         // Go through all tabs and make sure their fragments match
         // the correct state.
@@ -279,7 +336,7 @@ public class FragmentTabHost extends TabHost implements
                     // The fragment for this tab is already there and
                     // active, and it is what we really want to have
                     // as the current tab. Nothing to do.
-                    mLastTab = tab;
+                    mLastTab = tab;//获取选中的tab
                 } else {
                     // This fragment was restored in the active state,
                     // but is not the current tab. Deactivate it.
@@ -287,7 +344,7 @@ public class FragmentTabHost extends TabHost implements
                         ft = mFragmentManager.beginTransaction();
                     }
 //					ft.detach(tab.fragment);
-                    ft.hide(tab.fragment);
+                    ft.hide(tab.fragment);//隐藏fragment
                 }
             }
         }
@@ -295,13 +352,15 @@ public class FragmentTabHost extends TabHost implements
         // We are now ready to go. Make sure we are switched to the
         // correct tab.
         mAttached = true;
-        ft = doTabChanged(currentTab, ft);
+        ft = doTabChanged(currentTab, ft);//当tab被选中，提交事务
         if (ft != null) {
             ft.commitAllowingStateLoss();
             mFragmentManager.executePendingTransactions();
         }
     }
-
+    /**
+     * 当view从窗体分离时调用
+     */
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -311,8 +370,8 @@ public class FragmentTabHost extends TabHost implements
     @Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
-        SavedState ss = new SavedState(superState);
-        ss.curTab = getCurrentTabTag();
+        SavedState ss = new SavedState(superState);//将控件属性打包到Parcel容器
+        ss.curTab = getCurrentTabTag();//初始化控件当前tab
         return ss;
     }
 
@@ -335,7 +394,13 @@ public class FragmentTabHost extends TabHost implements
             mOnTabChangeListener.onTabChanged(tabId);
         }
     }
-
+    /**
+     * tab选中事务处理
+     *
+     * @param tabId
+     * @param ft
+     * @return
+     */
     private FragmentTransaction doTabChanged(String tabId,
                                              FragmentTransaction ft) {
         TabInfo newTab = null;
@@ -358,6 +423,7 @@ public class FragmentTabHost extends TabHost implements
                     ft.hide(mLastTab.fragment);
                 }
             }
+            //如果tab不为空，则显示，否则获取tab数据
             if (newTab != null) {
                 if (newTab.fragment == null) {
                     newTab.fragment = Fragment.instantiate(mContext,
@@ -369,7 +435,7 @@ public class FragmentTabHost extends TabHost implements
                 }
             }
 
-            mLastTab = newTab;
+            mLastTab = newTab;//获取选中的tab
         }
         return ft;
     }

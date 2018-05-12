@@ -19,13 +19,14 @@
     <application
         android:name=".weight.MyShopApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/shop"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name">
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,11 +34,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".TestActivity" />
-        <activity android:name=".WareListActivity" />
+        <activity android:name=".Activity.WareListActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".WareDetailActivity"
+            android:name=".Activity.WareDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_ware_detail" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".Activity.LoginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -53,14 +60,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".BaseActivity" />
+        <!--<activity android:name=".Activity.BaseActivity" />-->
         <activity
-            android:name=".NewOrderActivity"
-            android:label="@string/title_activity_new_order" />
-        <activity
-            android:name=".RegActivity"
+            android:name=".Activity.RegActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_reg" />
-        <activity android:name=".RegSecondActivity" />
+        <activity android:name=".Activity.RegSecondActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
 
         <!-- Ping++ SDK所需要注册 -->
         <activity
@@ -121,13 +129,25 @@
         <activity
             android:name="cmb.pb.ui.PBKeyboardActivity"
             android:theme="@style/CmbDialogStyleBottom" />
-        <activity android:name=".CreateOrderActivity" />
-        <activity android:name=".PayResultActivity" />
-        <activity android:name=".AddressListActivity" />
-        <activity android:name=".AddressAddActivity" />
-        <activity android:name=".MyOrderActivity" />
+        <activity android:name=".Activity.CreateOrderActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.PayResultActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.AddressListActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.AddressAddActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.MyOrderActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity android:name=".OrderDetailActivity" />
-        <activity android:name=".MyFavoriteActivity"></activity>
+        <activity android:name=".Activity.MyFavoriteActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

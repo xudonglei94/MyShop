@@ -22,68 +22,93 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/4/29.
  */
+/**
+ * 主页商品适配器
+ */
+public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapter.ViewHolder> {
 
-public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapter.ViewHolder>{
 
-    private  static  int VIEW_TYPE_L=0;
-    private  static  int VIEW_TYPE_R=1;
-     private LayoutInflater mInflater;
 
-    private  List<HomeCampaign> mDatas;
+    private  static int VIEW_TYPE_L=0;
+    private  static int VIEW_TYPE_R=1;
 
-    private Context mContext;
-    private OnCampaignClickListener mListener;
+    private LayoutInflater mInflater;
 
-    public void setOnCampaignClick(OnCampaignClickListener mListener) {
-        this.mListener = mListener;
-    }
+
+
+    private List<HomeCampaign> mDatas;
+
+    private  Context mContext;
+
+
+    private  OnCampaignClickListener mListener;
+
 
     public HomeCategoryAdapter(List<HomeCampaign> datas, Context context){
-         this.mDatas=datas;
-         this.mContext=context;
-     }
+        mDatas = datas;
+        this.mContext = context;
+    }
 
 
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        mInflater=LayoutInflater.from(parent.getContext());
-        if (viewType==VIEW_TYPE_R){
-            return  new ViewHolder(mInflater.inflate(R.layout.template_home_cardview2,parent,false));
-        }
-        return new ViewHolder(mInflater.inflate(R.layout.template_home_cardview,parent,false));
+    public void setOnCampaignClickListener(OnCampaignClickListener listener){
+
+        this.mListener = listener;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-
-        HomeCampaign homeCampaign=mDatas.get(position);
-        holder.textView.setText(homeCampaign.getTitle());
-
-        Picasso.with(mContext).load(homeCampaign.getCpOne().getImgUrl()).into(holder.imageViewBig);
-        Picasso.with(mContext).load(homeCampaign.getCpTwo().getImgUrl()).into(holder.imageViewSmallTop);
-        Picasso.with(mContext).load(homeCampaign.getCpThree().getImgUrl()).into(holder.imageViewSmallBottom);
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int type) {
 
 
+        mInflater = LayoutInflater.from(viewGroup.getContext());
+        //根据类型切换布局
+        if(type == VIEW_TYPE_R){
 
+            return  new ViewHolder(mInflater.inflate(R.layout.template_home_cardview2,viewGroup,false));
+        }
+
+        return  new ViewHolder(mInflater.inflate(R.layout.template_home_cardview,viewGroup,false));
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+
+
+        HomeCampaign homeCampaign = mDatas.get(position);
+        viewHolder.textTitle.setText(homeCampaign.getTitle());
+
+        Picasso.with(mContext).load(homeCampaign.getCpOne().getImgUrl()).into(viewHolder.imageViewBig);
+        Picasso.with(mContext).load(homeCampaign.getCpTwo().getImgUrl()).into(viewHolder.imageViewSmallTop);
+        Picasso.with(mContext).load(homeCampaign.getCpThree().getImgUrl()).into(viewHolder.imageViewSmallBottom);
 
     }
 
     @Override
     public int getItemCount() {
+
+
+        if(mDatas==null || mDatas.size()<=0)
+            return 0;
+
         return mDatas.size();
     }
 
+
     @Override
     public int getItemViewType(int position) {
-        if (position%2==0){
-            return  VIEW_TYPE_R;
 
-        }else return  VIEW_TYPE_L;
+        if(position % 2==0){
+            return  VIEW_TYPE_R;
+        }
+        else return VIEW_TYPE_L;
+
+
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
-        TextView textView;
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+
+        TextView textTitle;
         ImageView imageViewBig;
         ImageView imageViewSmallTop;
         ImageView imageViewSmallBottom;
@@ -91,20 +116,21 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textView=itemView.findViewById(R.id.text_title);
-            imageViewBig=itemView.findViewById(R.id.imgview_big);
-            imageViewSmallTop=itemView.findViewById(R.id.imgview_small_top);
-            imageViewSmallBottom=itemView.findViewById(R.id.imgview_small_bottom);
+
+            textTitle = (TextView) itemView.findViewById(R.id.text_title);
+            imageViewBig = (ImageView) itemView.findViewById(R.id.imgview_big);
+            imageViewSmallTop = (ImageView) itemView.findViewById(R.id.imgview_small_top);
+            imageViewSmallBottom = (ImageView) itemView.findViewById(R.id.imgview_small_bottom);
+
 
             imageViewBig.setOnClickListener(this);
             imageViewSmallTop.setOnClickListener(this);
             imageViewSmallBottom.setOnClickListener(this);
-
-
         }
 
         @Override
         public void onClick(View v) {
+
 
             if(mListener !=null){
 
@@ -112,7 +138,12 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
 
             }
 
+
         }
+        /**
+         * 图片翻转效果
+         * @param v
+         */
         private  void anim(final View v){
 
             ObjectAnimator animator =  ObjectAnimator.ofFloat(v, "rotationX", 0.0F, 360.0F)
@@ -144,7 +175,13 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
             animator.start();
         }
     }
-     public  interface OnCampaignClickListener{
-         void onClick(View view, Campaign campaign);
+
+
+    public  interface OnCampaignClickListener{
+
+
+        void onClick(View view,Campaign campaign);
+
     }
+
 }

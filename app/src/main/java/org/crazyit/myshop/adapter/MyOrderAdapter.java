@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.w4lle.library.NineGridAdapter;
 import com.w4lle.library.NineGridlayout;
 
 import org.crazyit.myshop.R;
+import org.crazyit.myshop.Utils.ToastUtils;
 import org.crazyit.myshop.bean.Order;
 import org.crazyit.myshop.bean.OrderItem;
 import org.crazyit.myshop.weight.MyShopApplication;
@@ -21,15 +23,19 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/5/7.
  */
-
+/**
+ * 我的订单适配器
+ */
 public class MyOrderAdapter extends SimpleAdapter<Order> {
+    public OnItemWaresClickListener onItemWaresClickListener;
 
 
 
 
 
-    public MyOrderAdapter(Context context, List<Order> datas) {
+    public MyOrderAdapter(Context context, List<Order> datas,OnItemWaresClickListener onItemWaresClickListener) {
         super(context,datas, R.layout.template_my_orders);
+        this.onItemWaresClickListener = onItemWaresClickListener;
 
 
     }
@@ -43,7 +49,24 @@ public class MyOrderAdapter extends SimpleAdapter<Order> {
 
         TextView txtStatus = viewHoder.getTextView(R.id.txt_status);
 
+        Button mBtnBuyMore = viewHoder.getButton(R.id.btn_buy_more);
+        Button mBtnComment = viewHoder.getButton(R.id.btn_comment);
 
+        mBtnBuyMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemWaresClickListener.onItemWaresClickListener(v,item);
+            }
+        });
+
+        mBtnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.show(mContext,"功能正在完善...");
+            }
+        });
+
+        //根据订单状态分别显示订单
         switch (item.getStatus()){
 
             case Order.STATUS_SUCCESS:
@@ -126,6 +149,10 @@ public class MyOrderAdapter extends SimpleAdapter<Order> {
         }
 
 
+
+    }
+    public interface OnItemWaresClickListener{
+        void onItemWaresClickListener(View v,Order order);
     }
 
 

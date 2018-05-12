@@ -18,7 +18,9 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/5/1.
  */
-
+/**
+ * 热卖商品适配器
+ */
 public class HWAdapter extends SimpleAdapter<Wares>{
 
     CartProvider provider;
@@ -42,7 +44,7 @@ public class HWAdapter extends SimpleAdapter<Wares>{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //添加数据到购物车
                 provider.put(wares);
 
 
@@ -53,7 +55,10 @@ public class HWAdapter extends SimpleAdapter<Wares>{
         }
 
     }
-
+    /**
+     * 设置布局
+     * @param layoutId
+     */
     public void  resetLayout(int layoutId){
 
         //这个地方记得有点问题需要我们改一下,之前在父类中是layoutResId且是final类型的

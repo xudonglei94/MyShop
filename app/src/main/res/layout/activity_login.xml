@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color">
+    android:background="@color/bg_color"
+    tools:context=".Activity.LoginActivity">
 
-    <!--<include-->
-        <!--layout="@layout/activity_toolbar"/>-->
-    <org.crazyit.myshop.weight.CnToolbar
-        android:id="@id/toolbar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        app:title="登录界面"
-        app:navigationIcon="@drawable/icon_back_32px"
-        />
+
+    <include
+        layout="@layout/activity_toolbar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +21,7 @@
         android:padding="@dimen/largePadding">
 
         <org.crazyit.myshop.weight.ClearEditText
-            android:id="@+id/etxt_phone"
+            android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/icon_telphone_32"
@@ -42,7 +36,7 @@
 
 
         <org.crazyit.myshop.weight.ClearEditText
-            android:id="@+id/etxt_pwd"
+            android:id="@+id/et_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/icon_lock"

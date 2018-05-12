@@ -42,7 +42,7 @@
         />
 
     <Button
-        android:id="@+id/toolbar_rightButton"
+        android:id="@+id/toolbar_right_button"
         style="@android:style/Widget.Material.Toolbar.Button.Navigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

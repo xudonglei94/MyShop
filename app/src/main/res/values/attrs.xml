@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CnToolbar">
-        <attr name="rightButtonIcon" format="reference"/>
+        <attr name="RightButtonText" format="string"/>
+        <attr name="RightImgButtonIcon" format="reference"/>
         <attr name="isShowSearchView" format="boolean"/>
-        <attr name="rightButtonText" format="string"/>
         <attr name="leftButtonIcon" format="reference"/>
     </declare-styleable>
 

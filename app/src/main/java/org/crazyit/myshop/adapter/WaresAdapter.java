@@ -13,7 +13,9 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/5/1.
  */
-
+/**
+ * 分类右部商品显示适配器
+ */
 public class WaresAdapter extends SimpleAdapter<Wares> {
 
 

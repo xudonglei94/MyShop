@@ -8,6 +8,7 @@
     <string name="hot">热卖</string>
     <string name="category">分类</string>
     <string name="cart">购物车</string>
+    <string name="edit">编辑</string>
     <string name="mine">我的</string>
     <string name="title_activity_ware_detail">WareDetailActivity</string>
     <string name="share">分享</string>
@@ -25,5 +26,9 @@
     <string name="pay_result">支付结果</string>
     <string name="add_addresses">新建收件地址</string>
     <string name="cmbkb_publickey">填写自己的 publickey</string>
+    <string name="wares_list">商品列表</string>
+    <string name="wares_details">商品详情</string>
+    <string name="cancel">取消</string>
+    <string name="determine">确定</string>
 
 </resources>

@@ -6,19 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
-    tools:context=".RegActivity">
+    tools:context=".Activity.RegActivity">
 
-    <org.crazyit.myshop.weight.CnToolbar
-        android:id="@id/toolbar"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:navigationIcon="@drawable/icon_back_32px"
-        app:title="用户注册(1/2)"
-        app:rightButtonText="下一步"
-
-        />
+    <include
+        layout="@layout/activity_toolbar"/>
 
 
     <LinearLayout

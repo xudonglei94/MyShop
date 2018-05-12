@@ -1,8 +1,10 @@
 package org.crazyit.myshop.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import org.crazyit.myshop.R;
 import org.crazyit.myshop.bean.Address;
@@ -12,12 +14,16 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/5/7.
  */
-
+/**
+ * 地址
+ */
 public class AddressAdapter extends SimpleAdapter<Address> {
 
 
 
     private  AddressLisneter lisneter;
+    private TextView mTvEdit;
+    private TextView mTvDelete;
 
     public AddressAdapter(Context context, List<Address> datas, AddressLisneter lisneter) {
         super(context,datas, R.layout.template_address);
@@ -25,6 +31,21 @@ public class AddressAdapter extends SimpleAdapter<Address> {
         this.lisneter = lisneter;
 
 
+    }
+    public TextView getmTvEdit() {
+        return mTvEdit;
+    }
+
+    public void setmTvEdit(TextView mTvEdit) {
+        this.mTvEdit = mTvEdit;
+    }
+
+    public TextView getmTvDelete() {
+        return mTvDelete;
+    }
+
+    public void setmTvDelete(TextView mTvDelete) {
+        this.mTvDelete = mTvDelete;
     }
 
 
@@ -34,6 +55,11 @@ public class AddressAdapter extends SimpleAdapter<Address> {
         viewHoder.getTextView(R.id.txt_name).setText(item.getConsignee());
         viewHoder.getTextView(R.id.txt_phone).setText(replacePhoneNum(item.getPhone()));
         viewHoder.getTextView(R.id.txt_address).setText(item.getAddr());
+        TextView tvEdit = viewHoder.getTextView(R.id.txt_edit);
+        TextView tvDelete = viewHoder.getTextView(R.id.txt_del);
+
+        setmTvEdit(tvEdit);
+        setmTvDelete(tvDelete);
 
         final CheckBox checkBox = viewHoder.getCheckBox(R.id.cb_is_defualt);
 
@@ -43,9 +69,10 @@ public class AddressAdapter extends SimpleAdapter<Address> {
 
         if(isDefault){
             checkBox.setText("默认地址");
+            checkBox.setClickable(false);
         }
         else{
-
+            //默认地址Clickable为false
             checkBox.setClickable(true);
 
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -62,6 +89,22 @@ public class AddressAdapter extends SimpleAdapter<Address> {
 
 
         }
+        tvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (lisneter != null)
+                    lisneter.onClickEdit(item);
+            }
+        });
+
+        tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (lisneter != null)
+                    lisneter.onClickDelete(item);
+            }
+        });
 
 
     }
@@ -78,7 +121,10 @@ public class AddressAdapter extends SimpleAdapter<Address> {
     public interface AddressLisneter{
 
 
-        public void setDefault(Address address);
+        void setDefault(Address address);
+        void onClickEdit(Address address);
+
+        void onClickDelete(Address address);
 
     }
 

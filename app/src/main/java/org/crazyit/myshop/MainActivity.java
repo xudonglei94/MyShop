@@ -1,4 +1,4 @@
-package org.crazyit.myshop.Activity;
+package org.crazyit.myshop;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -25,6 +25,9 @@ import org.crazyit.myshop.weight.FragmentTabHost;
 
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * MainActivity
+ */
 //我们如果要用FragmentTabHost控件
 //1.首先Activity要继承FragmentActivity,AppCompatActivity继承了FragmentActivity
 public class MainActivity extends AppCompatActivity {
@@ -52,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
      * 3.添加TabSpec(indicator)
      */
     private void initTab() {
+        mInflater=LayoutInflater.from(this);
+        mTabhost=this.findViewById(android.R.id.tabhost);
+        //2.一定要记住调用setup()方法,R.id.realtabcontent是用来装载FragmentTabHost这个控件的容器FrameLayout
+        mTabhost.setup(this,getSupportFragmentManager(),R.id.realtabcontent);
 
         /**
          * 添加tab显示的文字和图片，绑定fragment
@@ -68,10 +75,7 @@ public class MainActivity extends AppCompatActivity {
         mTabs.add(tab_cart);
         mTabs.add(tab_mine);
 
-        mInflater=LayoutInflater.from(this);
-        mTabhost=this.findViewById(android.R.id.tabhost);
-        //2.一定要记住调用setup()方法,R.id.realtabcontent是用来装载FragmentTabHost这个控件的容器FrameLayout
-        mTabhost.setup(this,getSupportFragmentManager(),R.id.realtabcontent);
+
         for (Tab tab :mTabs){
             //实例化TabSpec对象
             TabHost.TabSpec tabSpec=mTabhost.newTabSpec(getString(tab.getTitle()));

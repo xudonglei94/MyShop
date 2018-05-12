@@ -19,7 +19,9 @@ import org.crazyit.myshop.R;
 /**
  * Created by Administrator on 2018/5/2.
  */
-
+/**
+ * 自定义加减控件
+ */
 public class NumberAddSubView extends LinearLayout implements View.OnClickListener {
 
 
@@ -62,16 +64,21 @@ public class NumberAddSubView extends LinearLayout implements View.OnClickListen
         if(attrs !=null){
 
             final TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs,
-                    R.styleable.NumberAddSubView, defStyleAttr, 0);
+                    R.styleable.NumberAddSubView
+                    , defStyleAttr
+                    , 0);
 
 
+            //value
             int val =  a.getInt(R.styleable.NumberAddSubView_value,0);
             setValue(val);
 
+            //maxValue
             int maxVal = a.getInt(R.styleable.NumberAddSubView_maxValue,0);
             if(maxVal!=0)
                 setMaxValue(maxVal);
 
+            //minValue
             int minVal = a.getInt(R.styleable.NumberAddSubView_minValue,0);
             setMinValue(minVal);
 
@@ -90,7 +97,7 @@ public class NumberAddSubView extends LinearLayout implements View.OnClickListen
 
 
 
-
+            //回收
             a.recycle();
         }
     }
@@ -99,7 +106,8 @@ public class NumberAddSubView extends LinearLayout implements View.OnClickListen
     private void initView(){
 
 
-
+        //int resource, ViewGroup root, boolean attachToRoot：
+        // root引用this原因是Layout继承ViewGroup，attachToRoot是否添加进ViewGroup
         View view = mInflater.inflate(R.layout.weight_num_add_sub,this,true);
 
         mEtxtNum = (TextView) view.findViewById(R.id.etxt_num);
@@ -138,7 +146,7 @@ public class NumberAddSubView extends LinearLayout implements View.OnClickListen
         }
     }
 
-
+    //加
     private void numAdd(){
 
 
@@ -146,11 +154,11 @@ public class NumberAddSubView extends LinearLayout implements View.OnClickListen
 
         if(this.value<=maxValue)
             this.value=+this.value+1;
-
+//value是数字，必须强制转换成字符串，否则被认为是资源id
         mEtxtNum.setText(value+"");
     }
 
-
+    //减
     private void numSub(){
 
 
@@ -162,7 +170,7 @@ public class NumberAddSubView extends LinearLayout implements View.OnClickListen
         mEtxtNum.setText(value+"");
     }
 
-
+    //获取value
     public int getValue(){
 
         String value = mEtxtNum.getText().toString();
@@ -219,7 +227,7 @@ public class NumberAddSubView extends LinearLayout implements View.OnClickListen
     public void setOnButtonClickListener(OnButtonClickListener onButtonClickListener) {
         this.onButtonClickListener = onButtonClickListener;
     }
-
+    //按钮接听接口
     public interface  OnButtonClickListener{
 
         public void onButtonAddClick(View view, int value);

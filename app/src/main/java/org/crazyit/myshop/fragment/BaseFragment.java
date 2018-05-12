@@ -9,41 +9,57 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 
-import org.crazyit.myshop.LoginActivity;
+import org.crazyit.myshop.Activity.LoginActivity;
+import org.crazyit.myshop.R;
 import org.crazyit.myshop.bean.User;
+import org.crazyit.myshop.weight.CnToolbar;
 import org.crazyit.myshop.weight.MyShopApplication;
 
 
 /**
  * Created by Administrator on 2018/5/3.
  */
-
+/**
+ * BaseFragment
+ */
 public abstract class BaseFragment extends Fragment {
+    private View mRootView;
 
+    //初始化toolbar
+    private void initToolbar() {
+        if (getToolbar() != null) {
+            setToolbar();
+        }
+    }
+    //设置toolbar方法
+    public abstract void setToolbar();
+    //获取toolbar的方法
+    public CnToolbar getToolbar() {
+        return (CnToolbar) mRootView.findViewById(R.id.toolbar_search_view);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = createView(inflater,container,savedInstanceState);
-        ViewUtils.inject(this, view);
+        if (getLayoutId() != 0){
+            mRootView = inflater.inflate(getLayoutId(),container,false);
+        }
+        ViewUtils.inject(this, mRootView);
 
-        initToolBar();
+        initToolbar();
 
         init();
 
-        return view;
+        return mRootView;
 
     }
-
-    public void  initToolBar(){
-
-    }
-
-
-    public abstract View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+    /**
+     * 获取布局
+     * @return
+     */
+    protected abstract int getLayoutId();
 
     public abstract void init();
 

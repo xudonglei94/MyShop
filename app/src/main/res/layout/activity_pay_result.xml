@@ -6,18 +6,10 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    android:background="@color/bg_color">
+    android:background="@color/bg_color"
+    tools:context=".Activity.PayResultActivity">
 
-    <org.crazyit.myshop.weight.CnToolbar
-        android:id="@id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-
-        app:contentInsetEnd="56dp"
-        app:title="@string/pay_result"
-        />
+    <include layout="@layout/activity_toolbar"/>
 
 
 
@@ -31,12 +23,14 @@
         android:background="@drawable/selector_view_block">
 
         <ImageView
+            android:id="@+id/img_pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_success_128"/>
 
 
         <TextView
+            android:id="@+id/tv_pay_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

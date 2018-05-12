@@ -8,6 +8,7 @@ import android.widget.Button;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.crazyit.myshop.R;
+import org.crazyit.myshop.Utils.ToastUtils;
 import org.crazyit.myshop.bean.Favorites;
 import org.crazyit.myshop.bean.Wares;
 
@@ -16,13 +17,17 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/5/7.
  */
+/**
+ * 收藏
+ */
+public class FavoriteAdapter extends SimpleAdapter<Favorites> {
+    private FavoriteLisneter mFavoriteLisneter;
 
-public class FavoriteAdatper extends SimpleAdapter<Favorites> {
 
 
-
-    public FavoriteAdatper(Context context, List<Favorites> datas) {
+    public FavoriteAdapter(Context context, List<Favorites> datas, FavoriteLisneter favoriteLisneter) {
         super(context, datas, R.layout.template_favorite);
+        this.mFavoriteLisneter = favoriteLisneter;
 
 
     }
@@ -43,11 +48,24 @@ public class FavoriteAdatper extends SimpleAdapter<Favorites> {
         buttonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mFavoriteLisneter != null)
+                    mFavoriteLisneter.onClickDelete(favorites);
 
 
             }
         });
+        buttonLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.show(mContext, "功能正在完善...");
+            }
+        });
 
+
+    }
+    public interface FavoriteLisneter {
+
+        void onClickDelete(Favorites favorite);
 
     }
 

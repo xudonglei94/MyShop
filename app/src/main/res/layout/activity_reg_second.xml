@@ -4,23 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".RegSecondActivity"
+    tools:context=".Activity.RegSecondActivity"
     android:orientation="vertical"
     android:background="@color/bg_color">
 
 
 
-    <org.crazyit.myshop.weight.CnToolbar
-        android:id="@id/toolbar"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        app:navigationIcon="@drawable/icon_back_32px"
-        app:title="用户注册(2/2)"
-        app:rightButtonText="完 成"
-        />
+    <include
+        layout="@layout/activity_toolbar"/>
 
 
     <TextView

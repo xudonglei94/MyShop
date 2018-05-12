@@ -1,9 +1,7 @@
-package org.crazyit.myshop;
+package org.crazyit.myshop.Activity;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,32 +11,22 @@ import android.widget.TextView;
 
 import com.cjj.MaterialRefreshLayout;
 import com.google.gson.reflect.TypeToken;
-import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
+import org.crazyit.myshop.Contants;
+import org.crazyit.myshop.R;
 import org.crazyit.myshop.Utils.Pager;
 import org.crazyit.myshop.adapter.BaseAdapter;
 import org.crazyit.myshop.adapter.HWAdapter;
 import org.crazyit.myshop.adapter.decoration.DividerItemDecoration;
 import org.crazyit.myshop.bean.Page;
 import org.crazyit.myshop.bean.Wares;
-import org.crazyit.myshop.weight.CnToolbar;
 
 import java.util.List;
-
-public class WareListActivity extends AppCompatActivity implements Pager.OnPageListener<Wares>,TabLayout.OnTabSelectedListener,View.OnClickListener {
-
-    private static final String TAG = "WareListActivity";
-
-    public static final int TAG_DEFAULT=0;
-    public static final int TAG_SALE=1;
-    public static final int TAG_PRICE=2;
-
-    public static final int ACTION_LIST=1;
-    public static final int ACTION_GIRD=2;
-
-
-
+/**
+ * 商品列表
+ */
+public class WareListActivity extends BaseActivity implements Pager.OnPageListener<Wares>,TabLayout.OnTabSelectedListener,View.OnClickListener {
 
     @ViewInject(R.id.tab_layout)
     private TabLayout mTablayout;
@@ -53,51 +41,47 @@ public class WareListActivity extends AppCompatActivity implements Pager.OnPageL
     @ViewInject(R.id.refresh_layout)
     private MaterialRefreshLayout mRefreshLayout;
 
-    @ViewInject(R.id.toolbar)
-    private CnToolbar mToolbar;
 
+    private static final String TAG = "WareListActivity";
+
+    private HWAdapter mWaresAdapter;
 
     private int orderBy = 0;
     private long campaignId = 0;
 
+    public static final int TAG_DEFAULT=0;
+    public static final int TAG_SALE=1;
+    public static final int TAG_PRICE=2;
 
-    private HWAdapter mWaresAdapter;
+    public static final int ACTION_LIST=1;
+    public static final int ACTION_GRID=2;
 
 
     private Pager pager;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ware_list);
-
-
-        ViewUtils.inject(this);
-        initToolBar();
-
-        campaignId=getIntent().getLongExtra(Contants.COMPAINGAIN_ID,0);
-
-        initTab();
-
-        getData();
+    public int getLayoutId() {
+        return R.layout.activity_ware_list;
     }
 
-    private void initToolBar(){
 
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WareListActivity.this.finish();
-            }
-        });
+    @Override
+    public void init() {
+        campaignId=getIntent().getLongExtra(Contants.COMPAINGAIN_ID,0);
 
+        //初始化Tab
+        initTab();
 
+        //获取数据
+        getData();
 
-        mToolbar.setRightButtonIcon(R.drawable.icon_grid_32);
-        mToolbar.getRightButton().setTag(ACTION_LIST);
-
-
-        mToolbar.setRightButtonOnClickListener(this);
-
+    }
+    @Override
+    public void setToolbar() {
+        getToolbar().setTitle(R.string.wares_list);
+        getToolbar().setRightImgButtonIcon(R.drawable.icon_grid_32);
+        getToolbar().getRightButton().setTag(ACTION_LIST);
+        getToolbar().setRightButtonOnClickListener(this);
+        getToolbar().setleftButtonIcon(R.drawable.icon_back_32px);
 
     }
 
@@ -115,7 +99,7 @@ public class WareListActivity extends AppCompatActivity implements Pager.OnPageL
         pager.request();
 
     }
-
+    //初始化tab
     private  void initTab(){
         TabLayout.Tab tab=mTablayout.newTab();
         tab.setText("默认");
@@ -139,55 +123,6 @@ public class WareListActivity extends AppCompatActivity implements Pager.OnPageL
 
 
         mTablayout.setOnTabSelectedListener(this);
-    }
-
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-        orderBy = (int) tab.getTag();
-        pager.putParam("orderBy",orderBy);
-        pager.request();
-
-    }
-
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-
-    }
-
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
-
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        int action = (int) v.getTag();
-
-        if(ACTION_LIST == action){
-
-
-            mToolbar.setRightButtonIcon(R.drawable.icon_list_32);
-            mToolbar.getRightButton().setTag(ACTION_GIRD);
-
-            mWaresAdapter.resetLayout(R.layout.template_grid_wares);
-
-
-            mRecyclerview_wares.setLayoutManager(new GridLayoutManager(this,2));
-
-        }
-        else if(ACTION_GIRD == action){
-
-
-
-            mToolbar.setRightButtonIcon(R.drawable.icon_grid_32);
-            mToolbar.getRightButton().setTag(ACTION_LIST);
-
-            mWaresAdapter.resetLayout(R.layout.template_hot_wares);
-
-            mRecyclerview_wares.setLayoutManager(new LinearLayoutManager(this));
-        }
-
     }
 
     @Override
@@ -229,4 +164,59 @@ public class WareListActivity extends AppCompatActivity implements Pager.OnPageL
         mWaresAdapter.loadMoreData(datas);
 
     }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        orderBy = (int) tab.getTag();
+        pager.putParam("orderBy",orderBy);
+        pager.request();
+
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        int action = (int) v.getTag();
+
+        if(ACTION_LIST == action){
+
+            //更改图标，布局，tag
+            getToolbar().setRightImgButtonIcon(R.drawable.icon_list_32);
+            getToolbar().getRightButton().setTag(ACTION_GRID);
+
+            mWaresAdapter.resetLayout(R.layout.template_grid_wares);
+
+
+            mRecyclerview_wares.setLayoutManager(new GridLayoutManager(this,2));
+            mRecyclerview_wares.setAdapter(mWaresAdapter);
+
+        }
+        else if(ACTION_GRID == action){
+
+
+
+            getToolbar().setRightImgButtonIcon(R.drawable.icon_grid_32);
+            getToolbar().getRightButton().setTag(ACTION_LIST);
+
+            mWaresAdapter.resetLayout(R.layout.template_hot_wares);
+
+            mRecyclerview_wares.setLayoutManager(new LinearLayoutManager(this));
+            mRecyclerview_wares.setAdapter(mWaresAdapter);
+        }
+
+    }
+
+
+
+
 }

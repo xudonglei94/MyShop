@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
     <!--购物车Fragment-->
     <org.crazyit.myshop.weight.CnToolbar
-        android:id="@id/toolbar"
+        android:id="@+id/toolbar_search_view"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
@@ -14,7 +15,6 @@
         app:contentInsetEnd="56dp"
         app:isShowSearchView="false"
         app:title="购物车"
-        app:rightButtonText="编辑"
         android:layout_alignParentTop="true"
         />
 
@@ -24,7 +24,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/toolbar_search_view">
 
 
     </android.support.v7.widget.RecyclerView>

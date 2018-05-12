@@ -1,19 +1,12 @@
-package org.crazyit.myshop.Utils;
+package org.crazyit.myshop.http;
 
 import android.content.Context;
-import android.content.Intent;
-
-import java.io.IOException;
 
 import dmax.dialog.SpotsDialog;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
-import org.crazyit.myshop.LoginActivity;
-import org.crazyit.myshop.R;
-import org.crazyit.myshop.weight.MyShopApplication;
-
-import static com.unionpay.sdk.ab.mContext;
+import org.crazyit.myshop.http.SimpleCallback;
 
 /**
  * Created by Administrator on 2018/4/30.

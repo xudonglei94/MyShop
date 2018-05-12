@@ -106,8 +106,9 @@ dependencies {
     compile 'com.pingxx:pingpp-qpay:2.1.16' // 使用QQ钱包时添加
     compile 'com.pingxx:pingpp-cmbwallet:2.1.16' // 使用招行一网通时添加
 
-    compile 'com.bigkoo:pickerview:2.0.3'
+    
     compile 'com.w4lle.library:NineLayout:1.0.0'
+    compile 'com.contrarywind:Android-PickerView:3.2.5'
 
 
 }

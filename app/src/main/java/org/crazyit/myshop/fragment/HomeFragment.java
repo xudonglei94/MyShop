@@ -1,15 +1,10 @@
 package org.crazyit.myshop.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -22,19 +17,19 @@ import com.google.gson.Gson;
 
 import org.crazyit.myshop.Contants;
 import org.crazyit.myshop.R;
-import org.crazyit.myshop.Utils.BaseCallback;
-import org.crazyit.myshop.Utils.OkHttpHelper;
-import org.crazyit.myshop.Utils.SpotsCallBack;
-import org.crazyit.myshop.WareListActivity;
+import org.crazyit.myshop.http.OkHttpHelper;
+import org.crazyit.myshop.http.SimpleCallback;
+import org.crazyit.myshop.http.SpotsCallBack;
+import org.crazyit.myshop.Activity.WareListActivity;
 import org.crazyit.myshop.adapter.DividerItemDecortion;
 import org.crazyit.myshop.adapter.HomeCategoryAdapter;
 import org.crazyit.myshop.bean.Banner;
 import org.crazyit.myshop.bean.Campaign;
 import org.crazyit.myshop.bean.HomeCampaign;
 
-import java.io.IOException;
 import java.util.List;
 
+import com.lidroid.xutils.view.annotation.ViewInject;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -46,35 +41,43 @@ import com.squareup.okhttp.Response;
  * AndroidImageSlider 轮播广告的实现：SliderLayout
  * RecyclerView 商品分类展示：
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     private static  final String TAG="HomeFragment";
 
+    @ViewInject(R.id.slider)
     private SliderLayout mSliderLayout;
 
     private PagerIndicator indicator;
 
+    @ViewInject(R.id.recyclerview)
     private RecyclerView  mRecyclerView;
     private HomeCategoryAdapter mAdatper;
 
     private Gson mGson=new Gson();
 
-    private List<Banner> mBanner;
+    private List<Banner> mBanners;
 
     private OkHttpHelper httpHelper=OkHttpHelper.getInstance();
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_home,container,false);
-        mSliderLayout=(SliderLayout)view.findViewById(R.id.slider);
+    public void setToolbar() {
 
-        indicator=view.findViewById( R.id.custom_indicator);
-
-        requestImages();
-        initRecyclerView(view);
-        return view;
     }
 
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_home;
+    }
+
+    @Override
+    public void init() {
+        requestImages();
+        initRecyclerView();
+
+    }
+    //请求轮播Banner图片数据
     private  void requestImages(){
         String url="http://112.124.22.238:8081/course_api/banner/query?type=1";
 
@@ -82,24 +85,23 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onSuccess(Response response, List<Banner> banners) {
-                mBanner=banners;
+                mBanners=banners;
                 initSlider();
 
             }
 
             @Override
             public void onError(Response response, int code, Exception e) {
-
+                e.printStackTrace();
             }
         });
 
 
     }
 
-    private void initRecyclerView( View view) {
-        mRecyclerView= view.findViewById(R.id.recyclerview);
+    private void initRecyclerView() {
 
-        httpHelper.get(Contants.API.CAMPAIGN_HOME,new BaseCallback<List<HomeCampaign>>(){
+        httpHelper.get(Contants.API.CAMPAIGN_HOME,new SimpleCallback<List<HomeCampaign>>(getContext()){
 
             @Override
             public void onBeforeRequest(Request request) {
@@ -124,6 +126,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onError(Response response, int code, Exception e) {
+                e.printStackTrace();
 
             }
 
@@ -134,10 +137,11 @@ public class HomeFragment extends Fragment {
         });
 
     }
+    //获取主页商品数据
     private void initData(List<HomeCampaign> homeCampaigns){
 
         mAdatper=new HomeCategoryAdapter(homeCampaigns,getActivity());
-        mAdatper.setOnCampaignClick(new HomeCategoryAdapter.OnCampaignClickListener() {
+        mAdatper.setOnCampaignClickListener(new HomeCategoryAdapter.OnCampaignClickListener() {
             @Override
             public void onClick(View view, Campaign campaign) {
                 Toast.makeText(getContext(),"title="+campaign.getTitle(),Toast.LENGTH_LONG).show();
@@ -158,12 +162,12 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
     }
-
+    //初始化slider
     private  void initSlider(){
 
 
-        if (mBanner!=null){
-            for (Banner banner:mBanner){
+        if (mBanners!=null){
+            for (Banner banner:mBanners){
 
                 TextSliderView textSliderView=new TextSliderView(this.getActivity());
                  textSliderView.image(banner.getImgUrl());
@@ -172,11 +176,13 @@ public class HomeFragment extends Fragment {
                 mSliderLayout.addSlider(textSliderView);
             }
         }
-
+        //设置指示器
         mSliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-
+        //设置动画效果
         mSliderLayout.setCustomAnimation(new DescriptionAnimation());
+        //设置转场效果
         mSliderLayout.setPresetTransformer(SliderLayout.Transformer.Fade);
+        //设置时长
         mSliderLayout.setDuration(3000);
 
         mSliderLayout.addOnPageChangeListener(new ViewPagerEx.OnPageChangeListener() {

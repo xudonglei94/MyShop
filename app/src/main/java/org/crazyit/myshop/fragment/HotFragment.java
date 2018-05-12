@@ -2,13 +2,10 @@ package org.crazyit.myshop.fragment;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.cjj.MaterialRefreshLayout;
 import com.google.gson.reflect.TypeToken;
@@ -18,7 +15,7 @@ import java.util.List;
 
 import org.crazyit.myshop.Contants;
 import org.crazyit.myshop.R;
-import org.crazyit.myshop.WareDetailActivity;
+import org.crazyit.myshop.Activity.WareDetailActivity;
 import org.crazyit.myshop.adapter.BaseAdapter;
 import org.crazyit.myshop.adapter.HWAdapter;
 import org.crazyit.myshop.Utils.Pager;
@@ -32,7 +29,10 @@ import org.crazyit.myshop.bean.Wares;
 /**
  * Created by Administrator on 2018/4/27.
  */
-
+/**
+ * 热卖 MaterialRefreshLayout：进行数据刷新，实现下拉加载和上拉加载更多
+ * RecyclerView：显示数据
+ */
 public class HotFragment extends BaseFragment implements Pager.OnPageListener<Wares> {
 
 
@@ -46,9 +46,15 @@ public class HotFragment extends BaseFragment implements Pager.OnPageListener<Wa
     private MaterialRefreshLayout mRefreshLayout;
 
 
+
     @Override
-    public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_hot,container,false);
+    public void setToolbar() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_hot;
     }
 
     @Override

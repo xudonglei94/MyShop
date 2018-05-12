@@ -10,7 +10,9 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/5/1.
  */
-
+/**
+ * 分类左部列表导航适配器
+ */
 public class CategoryAdapter extends  SimpleAdapter<Category> {
 
     public CategoryAdapter(Context context, List<Category> datas) {
